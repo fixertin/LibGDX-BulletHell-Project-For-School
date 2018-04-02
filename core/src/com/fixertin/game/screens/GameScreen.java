@@ -91,12 +91,24 @@ public abstract class GameScreen implements Screen{
             return;
         bullets.add(entity);
     }
-
     public static void removeBullets(Entity entity){
         if(entity == null)
             return;
         else if(!bullets.contains(entity))
             return;
         bullets.remove(entity);
+    }
+    public static boolean isEntityOffScreen(Entity entity){
+        if((entity.getPosition().x + entity.getTextureWidth()) < 0 - VIEWPORT.viewportWidth/2 ||
+                (entity.getPosition().x - entity.getTextureWidth()) > VIEWPORT.viewportWidth/2 ||
+                (entity.getPosition().y + entity.getTextureHeight()) > VIEWPORT.viewportHeight/2 ||
+                (entity.getPosition().y - entity.getTextureHeight()) < 0 - VIEWPORT.viewportHeight/2) {
+            System.out.println(entity.getPosition().x + " " + entity.getPosition().y);
+            System.out.println(entity.getTextureWidth() + " " + entity.getTextureHeight());
+            System.out.println("Entity removed");
+            return true;
+        }
+        else
+            return false;
     }
 }

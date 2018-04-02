@@ -15,14 +15,15 @@ public class MainGameScreen extends GameScreen{
     public Entity test, testIntersect;
     public MainGameAssets assets = new MainGameAssets();
 
-    private float scale = 5f;
+    //scale of screen when setting up viewport
+    private float scale = 10f;
 
 
     @Override
     public void show() {
         assets.loadAssets();
-        test = new Entity(10/PPM, 10/PPM,2/PPM, 0, 10/PPM, 10/PPM, assets.untitled, scale, PPM);
-        testIntersect = new Entity(25/PPM, 10/PPM, 10/PPM, 10/PPM, assets.untitled2, scale, PPM);
+        test = new Entity(10/PPM, 10/PPM,10/PPM, 0, 10/PPM, 10/PPM, assets.untitled, scale/2f, PPM);
+        testIntersect = new Entity(0, 0, 10/PPM, 10/PPM, assets.untitled2, scale/2f, PPM);
         entities.add(test);
         entities.add(testIntersect);
     }
@@ -50,7 +51,10 @@ public class MainGameScreen extends GameScreen{
 
         for(Entity e : entities){
             e.render(batch, sp, Gdx.graphics.getDeltaTime());
+            if(isEntityOffScreen(e))
+                entities.remove(e);
         }
+
     }
 
     @Override

@@ -8,11 +8,11 @@ import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 
 public class Entity {
-    private Vector2 position, velocity;
-    private float width, height, scale;
-    private final float PPM;
-    private TextureRegion texture;
-    private Rectangle boundingBox;
+    protected Vector2 position, velocity;
+    protected float width, height, scale, textureWidth, textureHeight;
+    protected final float PPM;
+    protected TextureRegion texture;
+    protected Rectangle boundingBox;
 
     /**
      *
@@ -35,7 +35,8 @@ public class Entity {
         this.scale = scale;
         this.PPM = PPM;
         boundingBox = new Rectangle(x, y, width, height);
-
+        textureWidth = texture.getRegionWidth();
+        textureHeight = texture.getRegionHeight();
     }
 
     /**
@@ -83,7 +84,7 @@ public class Entity {
         sp.end();
     }
 
-    private void updateBoundingBox(){
+    protected void updateBoundingBox(){
         boundingBox.setPosition(position);
     }
 
@@ -105,5 +106,21 @@ public class Entity {
     }
     public void setTexture(TextureRegion texture) {
         this.texture = texture;
+    }
+
+    /**
+     *
+     * @return width divided by the scale and PPM
+     */
+    public float getTextureWidth() {
+        return textureWidth/scale/PPM;
+    }
+
+    /**
+     *
+     * @return height divided by the scale and PPM
+     */
+    public float getTextureHeight() {
+        return textureHeight/scale/PPM;
     }
 }

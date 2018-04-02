@@ -7,15 +7,19 @@ import com.fixertin.game.util.Utility;
 import java.util.Map;
 
 public class MainGameAssets {
-    private TextureAtlas testAtlas;
+    private TextureAtlas testAtlas,
+            bulletAtlas;
     public TextureRegion untitled,
             untitled2,
             untitled3,
-            untitled4;
+            untitled4,
+            bitcoin;
 
     public void loadAssets(){
         Utility.loadTextureAtlas("textures/test.atlas");
         testAtlas = Utility.getTextureAtlas("textures/test.atlas");
+        Utility.loadTextureAtlas("textures/Bullet.atlas");
+        bulletAtlas = Utility.getTextureAtlas("textures/Bullet.atlas");
 
         //when all atlases are done load regions
         setTextureRegions();
@@ -26,6 +30,7 @@ public class MainGameAssets {
         untitled2 = testAtlas.findRegion("Untitled2");
         untitled3 = testAtlas.findRegion("Untitled3");
         untitled4 = testAtlas.findRegion("Untitled4");
+        bitcoin = bulletAtlas.findRegion("bitCoin");
     }
 
     public void unloadAssets(){
