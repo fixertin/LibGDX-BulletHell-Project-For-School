@@ -16,8 +16,8 @@ public class Entity {
 
     /**
      *
-     * @param x not scaled for PPM
-     * @param y not scaled for PPM
+     * @param x midpoint x of the texture and bounding box. not scaled for ppm
+     * @param y midpoint y of the texture and bounding box. not scaled for ppm
      * @param velx not scaled for PPM
      * @param vely not scaled for PPM
      * @param width not scaled for scale or PPM
@@ -37,6 +37,17 @@ public class Entity {
         boundingBox = new Rectangle(x, y, width, height);
 
     }
+
+    /**
+     *
+     * @param x midpoint x of the texture and bounding box. not scaled for ppm
+     * @param y midpoint y of the texture and bounding box. not scaled for ppm
+     * @param width not scaled for scale or PPM
+     * @param height not scaled for scale or PPM
+     * @param texture
+     * @param scale used for drawing the texture
+     * @param PPM used for drawing the texture
+     */
     public Entity(float x, float y, float width, float height, TextureRegion texture, float scale, float PPM){
         position = new Vector2(x, y);
         velocity = new Vector2(0, 0);
@@ -50,27 +61,30 @@ public class Entity {
 
     public void update(float deltaTime){
         position.mulAdd(velocity, deltaTime);
-        centerBoundingBoxOnTexture();
+        //centerBoundingBoxOnTexture();
+        updateBoundingBox();
     }
 
     public void render(Batch batch, ShapeRenderer sp, float deltaTime) {
         update(deltaTime);
         batch.begin();
-        batch.draw(texture, position.x, position.y, texture.getRegionWidth()/scale/PPM, texture.getRegionHeight()/scale/PPM);
+        batch.draw(texture, position.x - texture.getRegionWidth()/scale/PPM/2f,
+                position.y - texture.getRegionHeight()/scale/PPM/2f,
+                texture.getRegionWidth()/scale/PPM,
+                texture.getRegionHeight()/scale/PPM);
         batch.end();
 
         sp.begin(ShapeRenderer.ShapeType.Line);
         sp.setColor(Color.RED);
-        sp.rect(boundingBox.x,
-                boundingBox.y,
+        sp.rect(boundingBox.x - boundingBox.width/2,
+                boundingBox.y - boundingBox.height/2,
                 boundingBox.width,
                 boundingBox.height);
         sp.end();
     }
 
-    private void centerBoundingBoxOnTexture(){
-        boundingBox.setX((position.x + (texture.getRegionWidth()/scale/PPM/2f)) - boundingBox.getWidth()/2f);
-        boundingBox.setY((position.y + (texture.getRegionHeight()/scale/PPM/2f)) - boundingBox.getHeight()/2f);
+    private void updateBoundingBox(){
+        boundingBox.setPosition(position);
     }
 
     //Getters and Setters

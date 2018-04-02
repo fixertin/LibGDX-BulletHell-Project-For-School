@@ -24,6 +24,7 @@ public class MainGameScreen extends GameScreen{
         test = new Entity(10/PPM, 10/PPM,2/PPM, 0, 10/PPM, 10/PPM, assets.untitled, scale, PPM);
         testIntersect = new Entity(25/PPM, 10/PPM, 10/PPM, 10/PPM, assets.untitled2, scale, PPM);
         entities.add(test);
+        entities.add(testIntersect);
     }
 
     @Override
@@ -36,20 +37,15 @@ public class MainGameScreen extends GameScreen{
         camera.update();
         batch.setProjectionMatrix(camera.combined);
         sp.setProjectionMatrix(camera.combined);
+        //Batch draw
         batch.begin();
-        //batch.draw(untitled, 0, 0, untitled.getRegionWidth()/scale/PPM, untitled.getRegionHeight()/scale/PPM);
-        //batch.draw(untitled2, 10/PPM, 10/PPM, untitled2.getRegionWidth()/scale/PPM, untitled2.getRegionHeight()/scale/PPM);
-        //batch.draw(untitled3, 20/PPM, 20/PPM, untitled3.getRegionWidth()/scale/PPM, untitled3.getRegionHeight()/scale/PPM);
-        //batch.draw(untitled4, 30/PPM, 30/PPM, untitled4.getRegionWidth()/scale/PPM, untitled4.getRegionHeight()/scale/PPM);
+
         batch.end();
 
+        //ShapeRenderer draw
         sp.begin(ShapeRenderer.ShapeType.Line);
         sp.setColor(Color.RED);
-        //sp.rect(0, 0, 10/ PPM, 10/ PPM);
-        //sp.rect(10/PPM, 10/PPM, 10/ PPM, 10/ PPM);
-        //sp.rect(20/PPM, 20/PPM, 10/ PPM, 10/ PPM);
-        //sp.rect(30/PPM, 30/PPM, 10/ PPM, 10/ PPM);
-        //sp.rect(40/PPM, 40/PPM, 10/ PPM, 10/ PPM);
+
         sp.end();
 
         for(Entity e : entities){
