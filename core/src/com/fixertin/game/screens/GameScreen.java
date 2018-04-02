@@ -17,6 +17,7 @@ public abstract class GameScreen implements Screen{
     protected Batch batch = new SpriteBatch();
     protected ShapeRenderer sp = new ShapeRenderer();
     protected static ArrayList<Entity> entities = new ArrayList<Entity>();
+    protected static ArrayList<Entity> bullets = new ArrayList<Entity>();
     protected final float PPM = 10f;
 
     protected static class VIEWPORT{
@@ -84,5 +85,18 @@ public abstract class GameScreen implements Screen{
         else if(!entities.contains(entity))
             return;
         entities.remove(entity);
+    }
+    public static void addBullets(Entity entity){
+        if(entity == null)
+            return;
+        bullets.add(entity);
+    }
+
+    public static void removeBullets(Entity entity){
+        if(entity == null)
+            return;
+        else if(!bullets.contains(entity))
+            return;
+        bullets.remove(entity);
     }
 }

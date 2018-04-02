@@ -7,25 +7,22 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.fixertin.game.entities.Entity;
+import com.fixertin.game.screens.graphics.MainGameAssets;
 import com.fixertin.game.util.Utility;
 
 public class MainGameScreen extends GameScreen{
     public TextureAtlas testAtlas;
-    public TextureRegion untitled, untitled2, untitled3, untitled4;
-    public Entity test;
+    public Entity test, testIntersect;
+    public MainGameAssets assets = new MainGameAssets();
 
     private float scale = 5f;
 
 
     @Override
     public void show() {
-        Utility.loadTextureAtlas("textures/test.atlas");
-        testAtlas = Utility.getTextureAtlas("textures/test.atlas");
-        untitled = testAtlas.findRegion("Untitled");
-        untitled2 = testAtlas.findRegion("Untitled2");
-        untitled3 = testAtlas.findRegion("Untitled3");
-        untitled4 = testAtlas.findRegion("Untitled4");
-        test = new Entity(10/PPM, 10/PPM,2/PPM, 2/PPM, 10/PPM, 10/PPM, untitled, scale, PPM);
+        assets.loadAssets();
+        test = new Entity(10/PPM, 10/PPM,2/PPM, 0, 10/PPM, 10/PPM, assets.untitled, scale, PPM);
+        testIntersect = new Entity(25/PPM, 10/PPM, 10/PPM, 10/PPM, assets.untitled2, scale, PPM);
         entities.add(test);
     }
 
@@ -39,9 +36,6 @@ public class MainGameScreen extends GameScreen{
         camera.update();
         batch.setProjectionMatrix(camera.combined);
         sp.setProjectionMatrix(camera.combined);
-        float test = untitled.getRegionHeight();
-        test = test/4;
-        test = test/PPM;
         batch.begin();
         //batch.draw(untitled, 0, 0, untitled.getRegionWidth()/scale/PPM, untitled.getRegionHeight()/scale/PPM);
         //batch.draw(untitled2, 10/PPM, 10/PPM, untitled2.getRegionWidth()/scale/PPM, untitled2.getRegionHeight()/scale/PPM);
@@ -81,13 +75,13 @@ public class MainGameScreen extends GameScreen{
 
     @Override
     public void hide() {
-        //Utility.dispose();
+        assets.unloadAssets();
     }
 
     @Override
     public void dispose() {
         batch.dispose();
         sp.dispose();
-        Utility.dispose();
+        assets.unloadAssets();
     }
 }
