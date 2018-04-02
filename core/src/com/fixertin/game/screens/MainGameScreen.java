@@ -3,9 +3,11 @@ package com.fixertin.game.screens;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.math.Vector2;
 import com.fixertin.game.entities.Entity;
 import com.fixertin.game.screens.graphics.MainGameAssets;
 import com.fixertin.game.util.Utility;
@@ -40,7 +42,6 @@ public class MainGameScreen extends GameScreen{
         sp.setProjectionMatrix(camera.combined);
         //Batch draw
         batch.begin();
-
         batch.end();
 
         //ShapeRenderer draw
@@ -55,7 +56,10 @@ public class MainGameScreen extends GameScreen{
                 entities.remove(e);
         }
 
+
+
     }
+
 
     @Override
     public void resize(int width, int height) {

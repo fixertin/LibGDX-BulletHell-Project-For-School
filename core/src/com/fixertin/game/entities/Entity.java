@@ -9,7 +9,7 @@ import com.badlogic.gdx.math.Vector2;
 
 public class Entity {
     protected Vector2 position, velocity;
-    protected float width, height, scale, textureWidth, textureHeight;
+    protected float width, height, scale, textureWidth, textureHeight, angle;
     protected final float PPM;
     protected TextureRegion texture;
     protected Rectangle boundingBox;
