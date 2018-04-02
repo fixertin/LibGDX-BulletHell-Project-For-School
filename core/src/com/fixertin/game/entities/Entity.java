@@ -9,24 +9,42 @@ import com.badlogic.gdx.math.Vector2;
 
 public class Entity {
     private Vector2 position, velocity;
-    private float width, height;
+    private float width, height, scale;
+    private final float PPM;
     private TextureRegion texture;
     private Rectangle boundingBox;
 
-    public Entity(float x, float y, float velx, float vely, float width, float height, TextureRegion texture){
+    /**
+     *
+     * @param x not scaled for PPM
+     * @param y not scaled for PPM
+     * @param velx not scaled for PPM
+     * @param vely not scaled for PPM
+     * @param width not scaled for scale or PPM
+     * @param height not scaled for scale or PPM
+     * @param texture
+     * @param scale used for drawing the texture
+     * @param PPM used for drawing the texture
+     */
+    public Entity(float x, float y, float velx, float vely, float width, float height, TextureRegion texture, float scale, float PPM){
         position = new Vector2(x, y);
         velocity = new Vector2(velx, vely);
         this.width = width;
         this.height = height;
         this.texture = texture;
+        this.scale = scale;
+        this.PPM = PPM;
         boundingBox = new Rectangle(x, y+height, width, height);
+
     }
-    public Entity(float x, float y, float width, float height, TextureRegion texture){
+    public Entity(float x, float y, float width, float height, TextureRegion texture, float scale, float PPM){
         position = new Vector2(x, y);
         velocity = new Vector2(0, 0);
         this.width = width;
         this.height = height;
         this.texture = texture;
+        this.scale = scale;
+        this.PPM = PPM;
         boundingBox = new Rectangle(x, y+height, width, height);
     }
 
@@ -38,7 +56,7 @@ public class Entity {
     public void render(Batch batch, ShapeRenderer sp, float deltaTime) {
         update(deltaTime);
         batch.begin();
-        batch.draw(texture, position.x, position.y, width, height);
+        batch.draw(texture, position.x, position.y, texture.getRegionWidth()/scale/PPM, texture.getRegionHeight()/scale/PPM);
         batch.end();
 
         sp.begin(ShapeRenderer.ShapeType.Line);

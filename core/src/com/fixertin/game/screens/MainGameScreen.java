@@ -12,6 +12,7 @@ import com.fixertin.game.util.Utility;
 public class MainGameScreen extends GameScreen{
     public TextureAtlas testAtlas;
     public TextureRegion untitled, untitled2, untitled3, untitled4;
+    public Entity test;
 
     private float scale = 5f;
 
@@ -24,6 +25,7 @@ public class MainGameScreen extends GameScreen{
         untitled2 = testAtlas.findRegion("Untitled2");
         untitled3 = testAtlas.findRegion("Untitled3");
         untitled4 = testAtlas.findRegion("Untitled4");
+        test = new Entity(10/PPM, 10/PPM, 10/PPM, 10/PPM, untitled, scale, PPM);
     }
 
     @Override
@@ -40,19 +42,19 @@ public class MainGameScreen extends GameScreen{
         test = test/4;
         test = test/PPM;
         batch.begin();
-        batch.draw(untitled, 0, 0, untitled.getRegionWidth()/scale/PPM, untitled.getRegionHeight()/scale/PPM);
-        batch.draw(untitled2, 10/PPM, 10/PPM, untitled2.getRegionWidth()/scale/PPM, untitled2.getRegionHeight()/scale/PPM);
-        batch.draw(untitled3, 20/PPM, 20/PPM, untitled3.getRegionWidth()/scale/PPM, untitled3.getRegionHeight()/scale/PPM);
-        batch.draw(untitled4, 30/PPM, 30/PPM, untitled4.getRegionWidth()/scale/PPM, untitled4.getRegionHeight()/scale/PPM);
-        batch.end();
+        //batch.draw(untitled, 0, 0, untitled.getRegionWidth()/scale/PPM, untitled.getRegionHeight()/scale/PPM);
+        //batch.draw(untitled2, 10/PPM, 10/PPM, untitled2.getRegionWidth()/scale/PPM, untitled2.getRegionHeight()/scale/PPM);
+        //batch.draw(untitled3, 20/PPM, 20/PPM, untitled3.getRegionWidth()/scale/PPM, untitled3.getRegionHeight()/scale/PPM);
+        //batch.draw(untitled4, 30/PPM, 30/PPM, untitled4.getRegionWidth()/scale/PPM, untitled4.getRegionHeight()/scale/PPM);
+        //batch.end();
 
         sp.begin(ShapeRenderer.ShapeType.Line);
         sp.setColor(Color.RED);
-        sp.rect(0, 0, 10/ PPM, 10/ PPM);
-        sp.rect(10/PPM, 10/PPM, 10/ PPM, 10/ PPM);
-        sp.rect(20/PPM, 20/PPM, 10/ PPM, 10/ PPM);
-        sp.rect(30/PPM, 30/PPM, 10/ PPM, 10/ PPM);
-        sp.rect(40/PPM, 40/PPM, 10/ PPM, 10/ PPM);
+        //sp.rect(0, 0, 10/ PPM, 10/ PPM);
+        //sp.rect(10/PPM, 10/PPM, 10/ PPM, 10/ PPM);
+        //sp.rect(20/PPM, 20/PPM, 10/ PPM, 10/ PPM);
+        //sp.rect(30/PPM, 30/PPM, 10/ PPM, 10/ PPM);
+        //sp.rect(40/PPM, 40/PPM, 10/ PPM, 10/ PPM);
         sp.end();
 
         for(Entity e : entities){
