@@ -1,0 +1,34 @@
+
+test.png
+size: 256,128
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+Untitled
+  rotate: false
+  xy: 187, 13
+  size: 57, 72
+  orig: 128, 128
+  offset: 28, 23
+  index: -1
+Untitled2
+  rotate: false
+  xy: 128, 9
+  size: 57, 76
+  orig: 128, 128
+  offset: 28, 23
+  index: -1
+Untitled3
+  rotate: false
+  xy: 69, 8
+  size: 57, 77
+  orig: 128, 128
+  offset: 28, 23
+  index: -1
+Untitled4
+  rotate: false
+  xy: 2, 2
+  size: 65, 83
+  orig: 128, 128
+  offset: 20, 23
+  index: -1
