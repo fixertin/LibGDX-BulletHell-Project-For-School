@@ -25,7 +25,8 @@ public class MainGameScreen extends GameScreen{
         untitled2 = testAtlas.findRegion("Untitled2");
         untitled3 = testAtlas.findRegion("Untitled3");
         untitled4 = testAtlas.findRegion("Untitled4");
-        test = new Entity(10/PPM, 10/PPM, 10/PPM, 10/PPM, untitled, scale, PPM);
+        test = new Entity(10/PPM, 10/PPM,2/PPM, 2/PPM, 10/PPM, 10/PPM, untitled, scale, PPM);
+        entities.add(test);
     }
 
     @Override
@@ -46,7 +47,7 @@ public class MainGameScreen extends GameScreen{
         //batch.draw(untitled2, 10/PPM, 10/PPM, untitled2.getRegionWidth()/scale/PPM, untitled2.getRegionHeight()/scale/PPM);
         //batch.draw(untitled3, 20/PPM, 20/PPM, untitled3.getRegionWidth()/scale/PPM, untitled3.getRegionHeight()/scale/PPM);
         //batch.draw(untitled4, 30/PPM, 30/PPM, untitled4.getRegionWidth()/scale/PPM, untitled4.getRegionHeight()/scale/PPM);
-        //batch.end();
+        batch.end();
 
         sp.begin(ShapeRenderer.ShapeType.Line);
         sp.setColor(Color.RED);

@@ -34,7 +34,7 @@ public class Entity {
         this.texture = texture;
         this.scale = scale;
         this.PPM = PPM;
-        boundingBox = new Rectangle(x, y+height, width, height);
+        boundingBox = new Rectangle(x, y, width, height);
 
     }
     public Entity(float x, float y, float width, float height, TextureRegion texture, float scale, float PPM){
@@ -45,12 +45,12 @@ public class Entity {
         this.texture = texture;
         this.scale = scale;
         this.PPM = PPM;
-        boundingBox = new Rectangle(x, y+height, width, height);
+        boundingBox = new Rectangle(x, y, width, height);
     }
 
     public void update(float deltaTime){
         position.mulAdd(velocity, deltaTime);
-
+        centerBoundingBoxOnTexture();
     }
 
     public void render(Batch batch, ShapeRenderer sp, float deltaTime) {
@@ -61,9 +61,16 @@ public class Entity {
 
         sp.begin(ShapeRenderer.ShapeType.Line);
         sp.setColor(Color.RED);
-        //sp.rect(position.x, position.y, width, height);
-        sp.rect(boundingBox.x, boundingBox.y, boundingBox.width, boundingBox.height);
+        sp.rect(boundingBox.x,
+                boundingBox.y,
+                boundingBox.width,
+                boundingBox.height);
         sp.end();
+    }
+
+    private void centerBoundingBoxOnTexture(){
+        boundingBox.setX((position.x + (texture.getRegionWidth()/scale/PPM/2f)) - boundingBox.getWidth()/2f);
+        boundingBox.setY((position.y + (texture.getRegionHeight()/scale/PPM/2f)) - boundingBox.getHeight()/2f);
     }
 
     //Getters and Setters
@@ -78,18 +85,6 @@ public class Entity {
     }
     public void setVelocity(Vector2 velocity) {
         this.velocity = velocity;
-    }
-    public float getWidth() {
-        return width;
-    }
-    public void setWidth(float width) {
-        this.width = width;
-    }
-    public float getHeight() {
-        return height;
-    }
-    public void setHeight(float height) {
-        this.height = height;
     }
     public TextureRegion getTexture() {
         return texture;
