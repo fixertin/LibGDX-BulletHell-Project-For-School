@@ -16,13 +16,12 @@ public abstract class AI {
         this.e = e;
     }
 
+    public abstract void reset(Enemy e);
+    public abstract void update();
+
     public void start(){
         this.state = AIState.Running;
     }
-    public abstract void reset(Enemy e);
-    public abstract void tick();
-
-
     protected void succeed(){
         this.state = AIState.Success;
     }

@@ -8,13 +8,15 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Vector2;
+import com.fixertin.game.entities.Enemy;
 import com.fixertin.game.entities.Entity;
 import com.fixertin.game.screens.graphics.MainGameAssets;
 import com.fixertin.game.util.Utility;
 
 public class MainGameScreen extends GameScreen{
     public TextureAtlas testAtlas;
-    public Entity test, testIntersect;
+    public Entity test;
+    public Enemy testEnemy;
     public MainGameAssets assets = new MainGameAssets();
 
     //scale of screen when setting up viewport
@@ -24,10 +26,14 @@ public class MainGameScreen extends GameScreen{
     @Override
     public void show() {
         assets.loadAssets();
-        test = new Entity(10/PPM, 10/PPM,10/PPM, 0, 10/PPM, 10/PPM, assets.untitled, scale/2f, PPM);
-        testIntersect = new Entity(0, 0, 10/PPM, 10/PPM, assets.untitled2, scale/2f, PPM);
+        test = new Entity(10/PPM, 10/PPM,10/PPM, 0, 10/PPM, 10/PPM, assets.untitled, scale/2f, PPM, 0);
+        testEnemy = new Enemy(0, 0, 0, 0, 10/PPM, 10/PPM, assets.untitled2, scale/2f, PPM, 0);
+        testEnemy.addMoveTo(2/PPM, 0, 1/PPM);
+        testEnemy.addMoveTo(2/PPM, -90f, 1/PPM);
+        testEnemy.addMoveTo(2/PPM, 180f, 1/PPM);
+        testEnemy.addMoveTo(2/PPM, 90f, 1/PPM);
         entities.add(test);
-        entities.add(testIntersect);
+        entities.add(testEnemy);
     }
 
     @Override

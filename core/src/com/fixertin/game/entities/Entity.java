@@ -26,7 +26,7 @@ public class Entity {
      * @param scale used for drawing the texture
      * @param PPM used for drawing the texture
      */
-    public Entity(float x, float y, float velx, float vely, float width, float height, TextureRegion texture, float scale, float PPM){
+    public Entity(float x, float y, float velx, float vely, float width, float height, TextureRegion texture, float scale, float PPM, float angle){
         position = new Vector2(x, y);
         velocity = new Vector2(velx, vely);
         this.width = width;
@@ -34,30 +34,10 @@ public class Entity {
         this.texture = texture;
         this.scale = scale;
         this.PPM = PPM;
+        this.angle = angle;
         boundingBox = new Rectangle(x, y, width, height);
         textureWidth = texture.getRegionWidth();
         textureHeight = texture.getRegionHeight();
-    }
-
-    /**
-     *
-     * @param x midpoint x of the texture and bounding box. not scaled for ppm
-     * @param y midpoint y of the texture and bounding box. not scaled for ppm
-     * @param width not scaled for scale or PPM
-     * @param height not scaled for scale or PPM
-     * @param texture
-     * @param scale used for drawing the texture
-     * @param PPM used for drawing the texture
-     */
-    public Entity(float x, float y, float width, float height, TextureRegion texture, float scale, float PPM){
-        position = new Vector2(x, y);
-        velocity = new Vector2(0, 0);
-        this.width = width;
-        this.height = height;
-        this.texture = texture;
-        this.scale = scale;
-        this.PPM = PPM;
-        boundingBox = new Rectangle(x, y, width, height);
     }
 
     public void update(float deltaTime){
@@ -106,6 +86,12 @@ public class Entity {
     }
     public void setTexture(TextureRegion texture) {
         this.texture = texture;
+    }
+    public float getAngle() {
+        return angle;
+    }
+    public void setAngle(float angle) {
+        this.angle = angle;
     }
 
     /**
