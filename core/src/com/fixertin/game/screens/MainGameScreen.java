@@ -20,7 +20,7 @@ public class MainGameScreen extends GameScreen{
 
     //scale of screen when setting up viewport
     private float scale = 5f;
-    
+
     @Override
     public void show() {
         assets.loadAssets();
