@@ -13,6 +13,7 @@ public class Entity {
     protected final float PPM;
     protected TextureRegion texture;
     protected Rectangle boundingBox;
+    protected boolean removed;
 
     /**
      *
@@ -39,6 +40,33 @@ public class Entity {
         textureWidth = texture.getRegionWidth();
         textureHeight = texture.getRegionHeight();
     }
+    public Entity(float x, float y, Vector2 velocity, float width, float height, TextureRegion texture, float scale, float PPM, float angle){
+        position = new Vector2(x, y);
+        this.velocity = velocity;
+        this.width = width;
+        this.height = height;
+        this.texture = texture;
+        this.scale = scale;
+        this.PPM = PPM;
+        this.angle = angle;
+        boundingBox = new Rectangle(x, y, width, height);
+        textureWidth = texture.getRegionWidth();
+        textureHeight = texture.getRegionHeight();
+    }
+    public Entity(float x, float y, float width, float height, TextureRegion texture, float scale, float PPM, float angle){
+        position = new Vector2(x, y);
+        this.velocity = new Vector2(0, 0);
+        this.width = width;
+        this.height = height;
+        this.texture = texture;
+        this.scale = scale;
+        this.PPM = PPM;
+        this.angle = angle;
+        boundingBox = new Rectangle(x, y, width, height);
+        textureWidth = texture.getRegionWidth();
+        textureHeight = texture.getRegionHeight();
+    }
+
 
     public void update(float deltaTime){
         position.mulAdd(velocity, deltaTime);
@@ -108,5 +136,24 @@ public class Entity {
      */
     public float getTextureHeight() {
         return textureHeight/scale/PPM;
+    }
+
+    public boolean isRemoved() {
+        return removed;
+    }
+    public void setRemoved(boolean removed) {
+        this.removed = removed;
+    }
+
+    public Rectangle getBoundingBox() {
+        return boundingBox;
+    }
+
+    public float getScale() {
+        return scale;
+    }
+
+    public float getPPM() {
+        return PPM;
     }
 }

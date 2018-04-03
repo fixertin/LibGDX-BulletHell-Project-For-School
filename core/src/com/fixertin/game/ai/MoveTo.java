@@ -2,6 +2,8 @@ package com.fixertin.game.ai;
 
 import com.badlogic.gdx.math.Vector2;
 import com.fixertin.game.entities.Enemy;
+import com.fixertin.game.screens.GameScreen;
+import com.fixertin.game.screens.MainGameScreen;
 import com.fixertin.game.util.BulletMath;
 
 public class MoveTo extends AI{
@@ -9,6 +11,14 @@ public class MoveTo extends AI{
     private Vector2 startPosition;
     private Vector2 velocity;
 
+
+    /**
+     *
+     * @param e
+     * @param distance if set to 0, will go until off screen
+     * @param angle
+     * @param speed
+     */
     public MoveTo(Enemy e, float distance, float angle, float speed) {
         super(e);
         this.distance = distance;
@@ -27,13 +37,18 @@ public class MoveTo extends AI{
     @Override
     public void update() {
         if(isRunning()){
-            if(startPosition.dst(e.getPosition()) >= distance){
+            if(distance == 0) {
+                e.setVelocity(velocity);
+            }else if(startPosition.dst(e.getPosition()) >= distance){
                 succeed();
                 e.setVelocity(new Vector2(0, 0));
-            }else{
+            }else {
                 e.setVelocity(velocity);
             }
-
+            if(MainGameScreen.isEntityOffScreen(e) && isRunning()) {
+                e.setRemoved(true);
+                succeed();
+            }
         }
     }
 }
