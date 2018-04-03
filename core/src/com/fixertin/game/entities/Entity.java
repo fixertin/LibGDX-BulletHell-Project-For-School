@@ -13,6 +13,7 @@ public class Entity {
     protected final float PPM;
     protected TextureRegion texture;
     protected Rectangle boundingBox;
+    protected boolean removed;
 
     /**
      *
@@ -108,5 +109,13 @@ public class Entity {
      */
     public float getTextureHeight() {
         return textureHeight/scale/PPM;
+    }
+
+    public boolean isRemoved() {
+        return removed;
+    }
+
+    public void setRemoved(boolean removed) {
+        removed = removed;
     }
 }

@@ -36,8 +36,11 @@ public class Enemy extends Entity{
         if(movements.get(index).isSuccess() && index+1 < movements.size()){
             index+=1;
             movements.get(index).reset(this);
+        }else if(index+1 <= movements.size()){
+            movements.get(index).update();
+        }else{
+            removed = true;
         }
-        movements.get(index).update();
         super.update(deltaTime);
     }
 
