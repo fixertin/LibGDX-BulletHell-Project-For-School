@@ -1,4 +1,19 @@
 package com.fixertin.game.ai;
 
-public class MoveInCurve {
+import com.fixertin.game.entities.Enemy;
+
+public class MoveInCurve extends AI{
+    public MoveInCurve(Enemy e) {
+        super(e);
+    }
+
+    @Override
+    public void reset(Enemy e) {
+
+    }
+
+    @Override
+    public void update(float delta) {
+
+    }
 }
