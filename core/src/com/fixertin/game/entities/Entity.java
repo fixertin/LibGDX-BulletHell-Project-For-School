@@ -8,7 +8,7 @@ import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 
 public class Entity {
-    protected Vector2 position, velocity;
+    protected Vector2 position, velocity, acceleration;
     protected float width, height, scale, textureWidth, textureHeight, angle;
     protected final float PPM;
     protected TextureRegion texture;
@@ -53,7 +53,7 @@ public class Entity {
         textureWidth = texture.getRegionWidth();
         textureHeight = texture.getRegionHeight();
     }
-    public Entity(float x, float y, Vector2 velocity, float width, float height, TextureRegion texture, float scale, float PPM, float angle){
+    public Entity(float x, float y, Vector2 velocity, float width, float height, TextureRegion texture, float scale, float PPM, float angle, Vector2 acceleration){
         this.position = new Vector2(x, y);
         this.velocity = velocity;
         this.width = width;
@@ -65,10 +65,13 @@ public class Entity {
         boundingBox = new Rectangle(position.x, position.y, width, height);
         textureWidth = texture.getRegionWidth();
         textureHeight = texture.getRegionHeight();
+        this.acceleration = acceleration;
     }
 
     public void update(float deltaTime){
         position.mulAdd(velocity, deltaTime);
+        if(acceleration != null)
+            velocity.mulAdd(acceleration, deltaTime);
         //centerBoundingBoxOnTexture();
         updateBoundingBox();
     }

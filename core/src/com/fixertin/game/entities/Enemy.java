@@ -5,7 +5,6 @@ import com.fixertin.game.ai.*;
 
 
 import java.util.ArrayList;
-import java.util.Stack;
 
 public class Enemy extends Entity{
     public ArrayList<AI> movements = new ArrayList<AI>();
@@ -54,8 +53,11 @@ public class Enemy extends Entity{
     public void addShootCircle(float shotgap, float speed){
         movements.add(new ShootCircle(this, shotgap, speed));
     }
-    public void addInfiniteShootAndTurn(int amount, float spreadAngle, float startAngle, float speed, float incrementAngleAmount, int shotsUntilTurn, float shotTimeGap){
-        movements.add(new InfiniteShootAndTurn(this, amount, spreadAngle, startAngle, speed, incrementAngleAmount, shotsUntilTurn, shotTimeGap));
+    public void addShootAndTurn(float timeUntilFinished, int amount, float spreadAngle, float startAngle, float speed, float incrementAngleAmount, int shotsUntilTurn, float shotTimeGap, float acceleration){
+        movements.add(new ShootAndTurn(this, timeUntilFinished, amount, spreadAngle, startAngle, speed, incrementAngleAmount, shotsUntilTurn, shotTimeGap, acceleration));
+    }
+    public void addWait(float timeUntilFinished){
+        movements.add(new Wait(this, timeUntilFinished));
     }
 
 }

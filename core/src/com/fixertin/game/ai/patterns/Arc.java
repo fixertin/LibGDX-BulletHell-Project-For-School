@@ -33,7 +33,8 @@ public class Arc extends Pattern{
                     MainGameScreen.assets.bitcoin,
                     20f,
                     Constant.PPM,
-                    startAngle+(i*shotgap))
+                    startAngle+(i*shotgap),
+                    null)
             );
         }
     }

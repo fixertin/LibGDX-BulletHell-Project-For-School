@@ -3,28 +3,19 @@ package com.fixertin.game.ai;
 import com.fixertin.game.ai.patterns.Shot;
 import com.fixertin.game.entities.Enemy;
 
-public class InfiniteShootAndTurn extends AI{
+public class ShootAndTurn extends AI{
     private Shot p;
     private int amount = 0, shotsUntilTurn;
-    private float shotTimeGap;
+    private float shotTimeGap, timeUntilFinished;
     private float timer = 0;
+    private float overallTimer = 0;
 
-    /**
-     *
-     * @param e
-     * @param amount if 0 shoot infinitely
-     * @param spreadAngle
-     * @param startAngle
-     * @param speed
-     * @param incrementAngleAmount
-     * @param shotsUntilTurn if 0 or 1 turn every shot
-     * @param shotTimeGap time until next shot
-     */
-    public InfiniteShootAndTurn(Enemy e, int amount, float spreadAngle, float startAngle, float speed, float incrementAngleAmount, int shotsUntilTurn, float shotTimeGap) {
+    public ShootAndTurn(Enemy e, float timeUntilFinished, int amount, float spreadAngle, float startAngle, float speed, float incrementAngleAmount, int shotsUntilTurn, float shotTimeGap, float acceleration) {
         super(e);
-        p = new Shot(e, amount, spreadAngle, startAngle, speed, incrementAngleAmount);
+        p = new Shot(e, amount, spreadAngle, startAngle, speed, incrementAngleAmount, acceleration);
         this.shotsUntilTurn = shotsUntilTurn;
         this.shotTimeGap = shotTimeGap;
+        this.timeUntilFinished = timeUntilFinished;
     }
 
     @Override
@@ -36,6 +27,7 @@ public class InfiniteShootAndTurn extends AI{
     @Override
     public void update(float delta) {
         if(isRunning()){
+            overallTimer += delta;
             if(shotTimeGap > 0){
                 //only shoot when timer is >= shotTimeGap
                 timer -= delta;
@@ -62,6 +54,9 @@ public class InfiniteShootAndTurn extends AI{
                         p.turn();
                     }
                 }
+            }
+            if(overallTimer >= timeUntilFinished && timeUntilFinished > 0){
+                succeed();
             }
         }
     }

@@ -28,7 +28,8 @@ public class CirclePattern extends Pattern{
                             MainGameScreen.assets.bitcoin,
                             20f,
                             Constant.PPM,
-                            i*shotGap)
+                            i*shotGap,
+                            null)
             );
         }
     }
