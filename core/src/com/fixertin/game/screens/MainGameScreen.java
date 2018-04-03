@@ -27,8 +27,7 @@ public class MainGameScreen extends GameScreen{
     public void show() {
         assets.loadAssets();
         test = new Enemy(0, 10/PPM,0, 0, 10/PPM, 10/PPM, assets.untitled, scale/2f, PPM, 0);
-        test.addShootArc(10, -180, 190, 7/PPM);
-        test.addShootCircle(20, 15/PPM);
+        test.addInfiniteShootAndTurn(4, 90, 270, 20/PPM, 10, 1, 0.2f);
         entities.add(test);
     }
 

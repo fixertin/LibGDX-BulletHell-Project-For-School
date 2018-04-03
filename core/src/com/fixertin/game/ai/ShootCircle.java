@@ -17,7 +17,7 @@ public class ShootCircle extends AI{
     }
 
     @Override
-    public void update() {
+    public void update(float delta) {
         if(isRunning()){
             p.fillBullets();
             succeed();

@@ -17,7 +17,7 @@ public abstract class AI {
     }
 
     public abstract void reset(Enemy e);
-    public abstract void update();
+    public abstract void update(float delta);
 
     public void start(){
         this.state = AIState.Running;

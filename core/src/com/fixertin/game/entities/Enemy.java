@@ -1,10 +1,7 @@
 package com.fixertin.game.entities;
 
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.fixertin.game.ai.AI;
-import com.fixertin.game.ai.MoveTo;
-import com.fixertin.game.ai.ShootArc;
-import com.fixertin.game.ai.ShootCircle;
+import com.fixertin.game.ai.*;
 
 
 import java.util.ArrayList;
@@ -40,7 +37,7 @@ public class Enemy extends Entity{
                 index+=1;
                 movements.get(index).reset(this);
             }else if(index+1 <= movements.size()){
-                movements.get(index).update();
+                movements.get(index).update(deltaTime);
             }else{
                 removed = true;
             }
@@ -56,6 +53,9 @@ public class Enemy extends Entity{
     }
     public void addShootCircle(float shotgap, float speed){
         movements.add(new ShootCircle(this, shotgap, speed));
+    }
+    public void addInfiniteShootAndTurn(int amount, float spreadAngle, float startAngle, float speed, float incrementAngleAmount, int shotsUntilTurn, float shotTimeGap){
+        movements.add(new InfiniteShootAndTurn(this, amount, spreadAngle, startAngle, speed, incrementAngleAmount, shotsUntilTurn, shotTimeGap));
     }
 
 }

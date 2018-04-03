@@ -17,7 +17,7 @@ public class ShootArc extends AI{
     }
 
     @Override
-    public void update() {
+    public void update(float delta) {
         if(isRunning()){
             pattern.fillBullets();
             succeed();

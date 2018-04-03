@@ -9,19 +9,13 @@ public class Shot extends Pattern{
     private int amount;
     private float spreadAngle, startAngle, speed, incrementAngleAmount;
 
-    public Shot(Entity shooter, int amount, float spreadAngle, float startAngle, float speed) {
-        super(shooter);
-        this.amount = amount;
-        this.spreadAngle = spreadAngle;
-        this.startAngle = startAngle;
-        this.speed = speed;
-    }
     public Shot(Entity shooter, int amount, float spreadAngle, float startAngle, float speed, float incrementAngleAmount) {
         super(shooter);
         this.amount = amount;
         this.spreadAngle = spreadAngle;
         this.startAngle = startAngle;
         this.speed = speed;
+        this.incrementAngleAmount = incrementAngleAmount;
     }
 
     @Override

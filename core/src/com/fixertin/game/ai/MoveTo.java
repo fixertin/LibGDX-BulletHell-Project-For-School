@@ -26,7 +26,7 @@ public class MoveTo extends AI{
     }
 
     @Override
-    public void update() {
+    public void update(float delta) {
         if(isRunning()){
             if(distance == 0) {
                 e.setVelocity(velocity);
