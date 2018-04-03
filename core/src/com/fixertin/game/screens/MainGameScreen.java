@@ -16,7 +16,6 @@ import com.fixertin.game.util.Utility;
 public class MainGameScreen extends GameScreen{
     public TextureAtlas testAtlas;
     public Enemy test;
-    public Enemy testEnemy;
     public MainGameAssets assets = new MainGameAssets();
 
     //scale of screen when setting up viewport
@@ -26,15 +25,8 @@ public class MainGameScreen extends GameScreen{
     @Override
     public void show() {
         assets.loadAssets();
-        test = new Enemy(10/PPM, 10/PPM,10/PPM, 0, 10/PPM, 10/PPM, assets.untitled, scale/2f, PPM, 0);
-        test.addMoveTo(0, 0, 10/PPM);
-        testEnemy = new Enemy(0, 0, 0, 0, 10/PPM, 10/PPM, assets.untitled2, scale/2f, PPM, 0);
-        testEnemy.addMoveTo(2/PPM, 0, 1/PPM);
-        testEnemy.addMoveTo(2/PPM, -90f, 2/PPM);
-        testEnemy.addMoveTo(2/PPM, 180f, 3/PPM);
-        testEnemy.addMoveTo(0, 90f, 10/PPM);
+        test = new Enemy(0, 10/PPM,10/PPM, 0, 10/PPM, 10/PPM, assets.untitled, scale/2f, PPM, 0);
         entities.add(test);
-        entities.add(testEnemy);
     }
 
     @Override
@@ -61,6 +53,12 @@ public class MainGameScreen extends GameScreen{
             e.render(batch, sp, Gdx.graphics.getDeltaTime());
         }
         entities.removeIf(entity -> entity.isRemoved());
+        for(Entity b : bullets){
+            b.render(batch, sp, Gdx.graphics.getDeltaTime());
+            if(isEntityOffScreen(b))
+                b.setRemoved(true);
+        }
+        bullets.removeIf(entity -> entity.isRemoved());
 
 
 

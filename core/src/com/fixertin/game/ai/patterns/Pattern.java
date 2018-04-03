@@ -8,6 +8,7 @@ public abstract class Pattern {
     public Pattern(Entity shooter){
         this.shooter = shooter;
     }
+
     public abstract void fillBullets();
 
     public Entity getShooter() {
