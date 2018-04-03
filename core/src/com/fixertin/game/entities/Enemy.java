@@ -3,6 +3,8 @@ package com.fixertin.game.entities;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.fixertin.game.ai.AI;
 import com.fixertin.game.ai.MoveTo;
+import com.fixertin.game.ai.ShootArc;
+import com.fixertin.game.ai.ShootCircle;
 
 
 import java.util.ArrayList;
@@ -31,21 +33,29 @@ public class Enemy extends Entity{
 
     @Override
     public void update(float deltaTime){
-        if(movements.get(index).getState() == null)
-            movements.get(index).start();
-        if(movements.get(index).isSuccess() && index+1 < movements.size()){
-            index+=1;
-            movements.get(index).reset(this);
-        }else if(index+1 <= movements.size()){
-            movements.get(index).update();
-        }else{
-            removed = true;
+        if(!movements.isEmpty()){
+            if(movements.get(index).getState() == null)
+                movements.get(index).start();
+            if(movements.get(index).isSuccess() && index+1 < movements.size()){
+                index+=1;
+                movements.get(index).reset(this);
+            }else if(index+1 <= movements.size()){
+                movements.get(index).update();
+            }else{
+                removed = true;
+            }
         }
         super.update(deltaTime);
     }
 
     public void addMoveTo(float distance, float angle, float speed){
         movements.add(new MoveTo(this, distance, angle, speed));
+    }
+    public void addShootArc(float shotgap, float startAngle, float arcSize, float speed){
+        movements.add(new ShootArc(this,shotgap, startAngle, arcSize, speed));
+    }
+    public void addShootCircle(float shotgap, float speed){
+        movements.add(new ShootCircle(this, shotgap, speed));
     }
 
 }

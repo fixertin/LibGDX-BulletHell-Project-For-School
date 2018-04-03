@@ -53,6 +53,19 @@ public class Entity {
         textureWidth = texture.getRegionWidth();
         textureHeight = texture.getRegionHeight();
     }
+    public Entity(float x, float y, Vector2 velocity, float width, float height, TextureRegion texture, float scale, float PPM, float angle){
+        this.position = new Vector2(x, y);
+        this.velocity = velocity;
+        this.width = width;
+        this.height = height;
+        this.texture = texture;
+        this.scale = scale;
+        this.PPM = PPM;
+        this.angle = angle;
+        boundingBox = new Rectangle(position.x, position.y, width, height);
+        textureWidth = texture.getRegionWidth();
+        textureHeight = texture.getRegionHeight();
+    }
 
     public void update(float deltaTime){
         position.mulAdd(velocity, deltaTime);
@@ -129,6 +142,6 @@ public class Entity {
     }
 
     public void setRemoved(boolean removed) {
-        removed = removed;
+        this.removed = removed;
     }
 }

@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.fixertin.game.entities.Entity;
+import com.fixertin.game.util.Constant;
 
 import java.util.ArrayList;
 
@@ -18,7 +19,7 @@ public abstract class GameScreen implements Screen{
     protected ShapeRenderer sp = new ShapeRenderer();
     protected static ArrayList<Entity> entities = new ArrayList<Entity>();
     protected static ArrayList<Entity> bullets = new ArrayList<Entity>();
-    protected final float PPM = 10f;
+    protected final float PPM = Constant.PPM;
 
     protected static class VIEWPORT{
         static float viewportWidth;
@@ -78,7 +79,6 @@ public abstract class GameScreen implements Screen{
             return;
         entities.add(entity);
     }
-
     public static void removeEntity(Entity entity){
         if(entity == null)
             return;
@@ -86,6 +86,7 @@ public abstract class GameScreen implements Screen{
             return;
         entities.remove(entity);
     }
+
     public static void addBullets(Entity entity){
         if(entity == null)
             return;
