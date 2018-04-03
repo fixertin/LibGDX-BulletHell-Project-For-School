@@ -1,7 +1,6 @@
 package com.fixertin.game.entities;
 
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.math.Vector2;
 import com.fixertin.game.ai.*;
 
 
@@ -60,7 +59,5 @@ public class Enemy extends Entity{
     public void addWait(float timeUntilFinished){
         movements.add(new Wait(this, timeUntilFinished));
     }
-    public void addMoveInCurve(Vector2[] dataSet, float speed){
-        movements.add(new MoveInCurve(this, dataSet, speed));
-    }
+
 }
