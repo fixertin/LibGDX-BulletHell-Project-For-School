@@ -1,5 +1,6 @@
 package com.fixertin.game.ai.patterns;
 
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.MathUtils;
 import com.fixertin.game.entities.Entity;
 import com.fixertin.game.screens.MainGameScreen;
@@ -10,8 +11,8 @@ public class Arc extends Pattern{
     public float shotgap, startAngle, arcSize;
     public float speed;
 
-    public Arc(Entity shooter, float shotgap, float startAngle, float arcSize, float speed) {
-        super(shooter);
+    public Arc(Entity shooter, TextureRegion texture, float shotgap, float startAngle, float arcSize, float speed) {
+        super(shooter, texture);
         this.shotgap = shotgap;
         this.startAngle = startAngle;
         this.arcSize = arcSize;
@@ -21,17 +22,16 @@ public class Arc extends Pattern{
     @Override
     public void fillBullets() {
         int bulletAmount = MathUtils.round((float)arcSize / shotgap);
-        System.out.println(bulletAmount);
         for(int i=0; i<bulletAmount; i++){
             MainGameScreen.addBullets(
                     new Entity(
                     shooter.getPosition().x,
                     shooter.getPosition().y,
                     BulletMath.getVelocity(speed, startAngle+(i*shotgap)),
-                    4/Constant.PPM,
-                    4/Constant.PPM,
-                    MainGameScreen.assets.bitcoin,
-                    20f,
+                    10/Constant.PPM/Constant.scale,
+                    10/Constant.PPM/Constant.scale,
+                    texture,
+                    Constant.scale*2.5f,
                     Constant.PPM,
                     startAngle+(i*shotgap),
                     null)

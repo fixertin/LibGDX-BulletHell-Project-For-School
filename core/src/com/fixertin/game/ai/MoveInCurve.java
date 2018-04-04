@@ -34,7 +34,7 @@ public class MoveInCurve extends AI{
             if(current >= 1)
                 succeed();
             myCatmull.valueAt(out, current);
-            e.setPosition(new Vector2(out.x, out.y));
+            e.setPosition(out.x, out.y);
         }
     }
 }

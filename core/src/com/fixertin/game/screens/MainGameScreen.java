@@ -12,42 +12,24 @@ import com.badlogic.gdx.math.Vector2;
 import com.fixertin.game.entities.Enemy;
 import com.fixertin.game.entities.Entity;
 import com.fixertin.game.screens.graphics.MainGameAssets;
+import com.fixertin.game.worlds.World;
+import com.fixertin.game.worlds.waves.WorldManager;
+
+import java.util.ArrayList;
 
 public class MainGameScreen extends GameScreen{
     public TextureAtlas testAtlas;
     public Enemy test;
     public static MainGameAssets assets = new MainGameAssets();
+    public static WorldManager worldManager;
+    public static int activeIndex = 0;
 
-    //scale of screen when setting up viewport
-    private float scale = 5f;
 
     @Override
     public void show() {
         assets.loadAssets();
-
-
-        Vector2[] dataSet = new Vector2[8];
-        dataSet[0] = new Vector2(-200.0f/PPM/10, -100.0f/PPM/10);
-        dataSet[1] = new Vector2(000.0f/PPM/10, 50.0f/PPM/10);
-        dataSet[2] = new Vector2(100.0f/PPM/10, 20.0f/PPM/10);
-        dataSet[3] = new Vector2(250.0f/PPM/10, -102.0f/PPM/10);
-        dataSet[4] = new Vector2(350.0f/PPM/10, 100.0f/PPM/10);
-        dataSet[5] = new Vector2(450.0f/PPM/10, 500.0f/PPM/10);
-        dataSet[6] = new Vector2(550.0f/PPM/10, -190.0f/PPM/10);
-        dataSet[7] = new Vector2(500.0f/PPM/10, -180.0f/PPM/10);
-
-
-        test = new Enemy(0, 0,0, 0, 10/PPM, 10/PPM, assets.untitled, scale, PPM, 0);
-        test.addMoveInCurve(dataSet, 0.15f);
-        //test.addShootAndTurn(7, 3, 90, 270, 40/PPM, 10, 1, 0.2f, -10);
-        //test.addWait(2);
-        //test.addShootAndTurn(7, 4, 90, 0, 20/PPM, 20, 1, 0.2f, -2);
-        //test.addMoveTo(10/PPM, 90, 5/PPM);
-        //test.addWait(1f);
-        //test.addShootArc(20, 270, 360, 15/PPM);
-        //test.addWait(.5f);
-        //test.addShootArc(20, 280, 360, 15/PPM);
-        entities.add(test);
+        worldManager = new WorldManager(assets);
+        worldManager.worlds.get(activeIndex).init();
     }
 
 
@@ -66,6 +48,15 @@ public class MainGameScreen extends GameScreen{
         batch.setProjectionMatrix(camera.combined);
         sp.setProjectionMatrix(camera.combined);
 
+        worldManager.worlds.get(activeIndex).update(delta);
+        if(worldManager.worlds.get(activeIndex).finished){
+            if(activeIndex+1 < worldManager.worlds.size()){
+                activeIndex++;
+                worldManager.worlds.get(activeIndex).init();
+            } else {
+                System.out.println("no more worlds");
+            }
+        }
 
         //Batch draw
         batch.begin();
@@ -89,7 +80,6 @@ public class MainGameScreen extends GameScreen{
                 b.setRemoved(true);
         }
         bullets.removeIf(bullet -> bullet.isRemoved());
-
 
 
     }

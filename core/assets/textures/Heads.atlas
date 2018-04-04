@@ -1,0 +1,55 @@
+
+Heads.png
+size: 2048,512
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+bernie
+  rotate: false
+  xy: 710, 2
+  size: 209, 256
+  orig: 209, 256
+  offset: 0, 0
+  index: -1
+hillaryAngry
+  rotate: false
+  xy: 251, 2
+  size: 242, 256
+  orig: 242, 256
+  offset: 0, 0
+  index: -1
+hillarySmug
+  rotate: false
+  xy: 921, 2
+  size: 208, 256
+  orig: 208, 256
+  offset: 0, 0
+  index: -1
+hillarySuprise
+  rotate: false
+  xy: 495, 2
+  size: 213, 256
+  orig: 213, 256
+  offset: 0, 0
+  index: -1
+trumpAngry
+  rotate: false
+  xy: 1131, 2
+  size: 190, 256
+  orig: 190, 256
+  offset: 0, 0
+  index: -1
+trumpSmug
+  rotate: false
+  xy: 1323, 2
+  size: 184, 256
+  orig: 184, 256
+  offset: 0, 0
+  index: -1
+trumpWeird
+  rotate: false
+  xy: 2, 2
+  size: 247, 256
+  orig: 247, 256
+  offset: 0, 0
+  index: -1

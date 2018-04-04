@@ -10,6 +10,13 @@ public class MoveTo extends AI{
     private Vector2 startPosition;
     private Vector2 velocity;
 
+    /**
+     *
+     * @param e
+     * @param distance if distance is 0 it will move until offscreen then be removed
+     * @param angle
+     * @param speed
+     */
     public MoveTo(Enemy e, float distance, float angle, float speed) {
         super(e);
         this.distance = distance;
@@ -29,14 +36,14 @@ public class MoveTo extends AI{
     public void update(float delta) {
         if(isRunning()){
             if(distance == 0) {
-                e.setVelocity(velocity);
+                e.setVelocity(velocity.x, velocity.y);
             }else if(startPosition.dst(e.getPosition()) >= distance){
                 succeed();
-                e.setVelocity(new Vector2(0, 0));
+                e.setVelocity(0, 0);
             }else{
-                e.setVelocity(velocity);
+                e.setVelocity(velocity.x, velocity.y);
             }
-            if(MainGameScreen.isEntityOffScreen(e) && isRunning()){
+            if(MainGameScreen.isEntityOffScreen(e) && isRunning() && distance == 0){
                 e.setRemoved(true);
                 succeed();
             }

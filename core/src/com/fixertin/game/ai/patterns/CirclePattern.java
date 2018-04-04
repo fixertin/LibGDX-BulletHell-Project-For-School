@@ -1,5 +1,6 @@
 package com.fixertin.game.ai.patterns;
 
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.fixertin.game.entities.Entity;
 import com.fixertin.game.screens.MainGameScreen;
 import com.fixertin.game.util.BulletMath;
@@ -9,8 +10,8 @@ public class CirclePattern extends Pattern{
     public float shotGap;
     public float speed;
 
-    public CirclePattern(Entity shooter, float shotGap, float speed) {
-        super(shooter);
+    public CirclePattern(Entity shooter, TextureRegion texture, float shotGap, float speed) {
+        super(shooter, texture);
         this.shotGap = shotGap;
         this.speed = speed;
     }
@@ -23,10 +24,10 @@ public class CirclePattern extends Pattern{
                             shooter.getPosition().x,
                             shooter.getPosition().y,
                             BulletMath.getVelocity(speed, i*shotGap),
-                            4/Constant.PPM,
-                            4/Constant.PPM,
-                            MainGameScreen.assets.bitcoin,
-                            20f,
+                            10/Constant.PPM/Constant.scale,
+                            10/Constant.PPM/Constant.scale,
+                            texture,
+                            Constant.scale*2.5f,
                             Constant.PPM,
                             i*shotGap,
                             null)

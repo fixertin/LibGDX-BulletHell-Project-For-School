@@ -1,5 +1,7 @@
 package com.fixertin.game.ai.patterns;
 
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.fixertin.game.entities.Entity;
 import com.fixertin.game.screens.MainGameScreen;
@@ -11,8 +13,8 @@ public class Shot extends Pattern{
     private float spreadAngle, startAngle, speed, incrementAngleAmount;
     private float acceleration;
 
-    public Shot(Entity shooter, int amount, float spreadAngle, float startAngle, float speed, float incrementAngleAmount, float acceleration) {
-        super(shooter);
+    public Shot(Entity shooter, TextureRegion texture, int amount, float spreadAngle, float startAngle, float speed, float incrementAngleAmount, float acceleration) {
+        super(shooter, texture);
         this.amount = amount;
         this.spreadAngle = spreadAngle;
         this.startAngle = startAngle;
@@ -29,10 +31,10 @@ public class Shot extends Pattern{
                             shooter.getPosition().x,
                             shooter.getPosition().y,
                             BulletMath.getVelocity(speed, startAngle+(i*spreadAngle)),
-                            4/Constant.PPM,
-                            4/Constant.PPM,
-                            MainGameScreen.assets.bitcoin,
-                            20f,
+                            10/Constant.PPM/Constant.scale,
+                            10/Constant.PPM/Constant.scale,
+                            texture,
+                            Constant.scale*2.5f,
                             Constant.PPM,
                             startAngle+(i*spreadAngle),
                             BulletMath.getVelocity(acceleration, startAngle+(i*spreadAngle)))

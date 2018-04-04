@@ -11,9 +11,10 @@ public class Entity {
     protected Vector2 position, velocity, acceleration;
     protected float width, height, scale, textureWidth, textureHeight, angle;
     protected final float PPM;
-    protected TextureRegion texture;
+    protected TextureRegion activeTexture;
+    protected TextureRegion[] textures;
     protected Rectangle boundingBox;
-    protected boolean removed;
+    protected boolean removed, dead, shooting;
 
     /**
      *
@@ -32,7 +33,7 @@ public class Entity {
         velocity = new Vector2(velx, vely);
         this.width = width;
         this.height = height;
-        this.texture = texture;
+        this.activeTexture = texture;
         this.scale = scale;
         this.PPM = PPM;
         this.angle = angle;
@@ -40,12 +41,26 @@ public class Entity {
         textureWidth = texture.getRegionWidth();
         textureHeight = texture.getRegionHeight();
     }
+    public Entity(float x, float y, float velx, float vely, float width, float height, TextureRegion[] textures, float scale, float PPM, float angle){
+        position = new Vector2(x, y);
+        velocity = new Vector2(velx, vely);
+        this.width = width;
+        this.height = height;
+        this.textures = textures;
+        this.activeTexture = textures[0];
+        this.scale = scale;
+        this.PPM = PPM;
+        this.angle = angle;
+        boundingBox = new Rectangle(x, y, width, height);
+        textureWidth = activeTexture.getRegionWidth();
+        textureHeight = activeTexture.getRegionHeight();
+    }
     public Entity(Vector2 position, Vector2 velocity, float width, float height, TextureRegion texture, float scale, float PPM, float angle){
         this.position = position;
         this.velocity = velocity;
         this.width = width;
         this.height = height;
-        this.texture = texture;
+        this.activeTexture = texture;
         this.scale = scale;
         this.PPM = PPM;
         this.angle = angle;
@@ -58,7 +73,7 @@ public class Entity {
         this.velocity = velocity;
         this.width = width;
         this.height = height;
-        this.texture = texture;
+        this.activeTexture = texture;
         this.scale = scale;
         this.PPM = PPM;
         this.angle = angle;
@@ -77,12 +92,14 @@ public class Entity {
     }
 
     public void render(Batch batch, ShapeRenderer sp, float deltaTime) {
+        textureWidth = activeTexture.getRegionWidth();
+        textureHeight = activeTexture.getRegionHeight();
         update(deltaTime);
         batch.begin();
-        batch.draw(texture, position.x - texture.getRegionWidth()/scale/PPM/2f,
-                position.y - texture.getRegionHeight()/scale/PPM/2f,
-                texture.getRegionWidth()/scale/PPM,
-                texture.getRegionHeight()/scale/PPM);
+        batch.draw(activeTexture, position.x - activeTexture.getRegionWidth()/scale/PPM/2f,
+                position.y - activeTexture.getRegionHeight()/scale/PPM/2f,
+                activeTexture.getRegionWidth()/scale/PPM,
+                activeTexture.getRegionHeight()/scale/PPM);
         batch.end();
 
         sp.begin(ShapeRenderer.ShapeType.Line);
@@ -102,26 +119,48 @@ public class Entity {
     public Vector2 getPosition() {
         return position;
     }
-    public void setPosition(Vector2 position) {
-        this.position = position;
+    public void setPosition(float x, float y) {
+        position.set(x, y);
+        updateBoundingBox();
     }
     public Vector2 getVelocity() {
         return velocity;
     }
-    public void setVelocity(Vector2 velocity) {
-        this.velocity = velocity;
+    public void setVelocity(float velx, float vely) {
+        velocity.set(velx, vely);
     }
     public TextureRegion getTexture() {
-        return texture;
+        return activeTexture;
     }
     public void setTexture(TextureRegion texture) {
-        this.texture = texture;
+        this.activeTexture = texture;
     }
     public float getAngle() {
         return angle;
     }
     public void setAngle(float angle) {
         this.angle = angle;
+    }
+    public Vector2 getAcceleration() {
+        return acceleration;
+    }
+    public void setAcceleration(Vector2 acceleration) {
+        this.acceleration = acceleration;
+    }
+    public Rectangle getBoundingBox() {
+        return boundingBox;
+    }
+    public boolean isDead() {
+        return dead;
+    }
+    public void setDead(boolean dead) {
+        this.dead = dead;
+    }
+    public boolean isShooting() {
+        return shooting;
+    }
+    public void setShooting(boolean shooting) {
+        this.shooting = shooting;
     }
 
     /**
@@ -146,5 +185,8 @@ public class Entity {
 
     public void setRemoved(boolean removed) {
         this.removed = removed;
+    }
+    public void setActiveTexture(int index){
+        activeTexture = textures[index];
     }
 }

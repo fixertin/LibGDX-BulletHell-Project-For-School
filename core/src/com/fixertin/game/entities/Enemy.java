@@ -3,6 +3,7 @@ package com.fixertin.game.entities;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.fixertin.game.ai.*;
+import com.fixertin.game.screens.MainGameScreen;
 
 
 import java.util.ArrayList;
@@ -10,6 +11,8 @@ import java.util.ArrayList;
 public class Enemy extends Entity{
     public ArrayList<AI> movements = new ArrayList<AI>();
     public int index = 0;
+    public float dyingTime = .75f;
+
 
 
     /**
@@ -19,43 +22,55 @@ public class Enemy extends Entity{
      * @param vely    not scaled for PPM
      * @param width   not scaled for scale or PPM
      * @param height  not scaled for scale or PPM
-     * @param texture
+     * @param textures textures
      * @param scale   used for drawing the texture
      * @param PPM     used for drawing the texture
      * @param angle
      */
-    public Enemy(float x, float y, float velx, float vely, float width, float height, TextureRegion texture, float scale, float PPM, float angle) {
-        super(x, y, velx, vely, width, height, texture, scale, PPM, angle);
+    public Enemy(float x, float y, float velx, float vely, float width, float height, TextureRegion[] textures, float scale, float PPM, float angle) {
+        super(x, y, velx, vely, width, height, textures, scale, PPM, angle);
     }
 
+    private float dyingTimer=0;
     @Override
     public void update(float deltaTime){
-        if(!movements.isEmpty()){
+        if(!movements.isEmpty() && !dead){
             if(movements.get(index).getState() == null)
-                movements.get(index).start();
+                movements.get(index).reset(this);
             if(movements.get(index).isSuccess() && index+1 < movements.size()){
                 index+=1;
                 movements.get(index).reset(this);
-            }else if(index+1 <= movements.size()){
+            }else if(index+1 <= movements.size() && !movements.get(index).isSuccess()){
                 movements.get(index).update(deltaTime);
             }else{
                 removed = true;
             }
         }
-        super.update(deltaTime);
+        if(!dead){
+            super.update(deltaTime);
+        }
+        if(dead){
+            if(dyingTimer == 0)
+                activeTexture = textures[2];
+            dyingTimer += deltaTime;
+            if(dyingTimer >= dyingTime){
+                setRemoved(true);
+            }
+        }
+
     }
 
     public void addMoveTo(float distance, float angle, float speed){
         movements.add(new MoveTo(this, distance, angle, speed));
     }
-    public void addShootArc(float shotgap, float startAngle, float arcSize, float speed){
-        movements.add(new ShootArc(this,shotgap, startAngle, arcSize, speed));
+    public void addShootArc(TextureRegion texture, float shotgap, float startAngle, float arcSize, float speed){
+        movements.add(new ShootArc(this, texture, shotgap, startAngle, arcSize, speed));
     }
-    public void addShootCircle(float shotgap, float speed){
-        movements.add(new ShootCircle(this, shotgap, speed));
+    public void addShootCircle(TextureRegion texture, float shotgap, float speed){
+        movements.add(new ShootCircle(this, texture, shotgap, speed));
     }
-    public void addShootAndTurn(float timeUntilFinished, int amount, float spreadAngle, float startAngle, float speed, float incrementAngleAmount, int shotsUntilTurn, float shotTimeGap, float acceleration){
-        movements.add(new ShootAndTurn(this, timeUntilFinished, amount, spreadAngle, startAngle, speed, incrementAngleAmount, shotsUntilTurn, shotTimeGap, acceleration));
+    public void addShootAndTurn(TextureRegion texture, float timeUntilFinished, int amount, float spreadAngle, float startAngle, float speed, float incrementAngleAmount, float timeUntilTurn, float shotTimeGap, float acceleration){
+        movements.add(new ShootAndTurn(this, texture, timeUntilFinished, amount, spreadAngle, startAngle, speed, incrementAngleAmount, timeUntilTurn, shotTimeGap, acceleration));
     }
     public void addWait(float timeUntilFinished){
         movements.add(new Wait(this, timeUntilFinished));

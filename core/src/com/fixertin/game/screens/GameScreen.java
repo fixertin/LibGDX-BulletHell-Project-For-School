@@ -20,6 +20,7 @@ public abstract class GameScreen implements Screen{
     protected static ArrayList<Entity> entities = new ArrayList<Entity>();
     protected static ArrayList<Entity> bullets = new ArrayList<Entity>();
     protected final float PPM = Constant.PPM;
+    protected final float scale = Constant.scale;
 
     protected static class VIEWPORT{
         static float viewportWidth;
@@ -111,5 +112,8 @@ public abstract class GameScreen implements Screen{
         }
         else
             return false;
+    }
+    public static ArrayList<Entity> getEntities(){
+        return entities;
     }
 }
