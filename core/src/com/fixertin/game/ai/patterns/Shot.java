@@ -1,6 +1,7 @@
 package com.fixertin.game.ai.patterns;
 
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.fixertin.game.entities.Entity;
@@ -13,7 +14,7 @@ public class Shot extends Pattern{
     private float spreadAngle, startAngle, speed, incrementAngleAmount;
     private float acceleration;
 
-    public Shot(Entity shooter, TextureRegion texture, int amount, float spreadAngle, float startAngle, float speed, float incrementAngleAmount, float acceleration) {
+    public Shot(Entity shooter, Sprite texture, int amount, float spreadAngle, float startAngle, float speed, float incrementAngleAmount, float acceleration) {
         super(shooter, texture);
         this.amount = amount;
         this.spreadAngle = spreadAngle;

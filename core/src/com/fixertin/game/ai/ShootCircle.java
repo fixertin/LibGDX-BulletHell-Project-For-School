@@ -1,5 +1,6 @@
 package com.fixertin.game.ai;
 
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.fixertin.game.ai.patterns.CirclePattern;
 import com.fixertin.game.entities.Enemy;
@@ -7,7 +8,7 @@ import com.fixertin.game.entities.Enemy;
 public class ShootCircle extends AI{
     private CirclePattern p;
 
-    public ShootCircle(Enemy e, TextureRegion texture, float shotGap, float speed) {
+    public ShootCircle(Enemy e, Sprite texture, float shotGap, float speed) {
         super(e);
         p = new CirclePattern(e, texture, shotGap, speed);
     }

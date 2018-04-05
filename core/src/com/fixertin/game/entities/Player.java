@@ -2,6 +2,7 @@ package com.fixertin.game.entities;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.fixertin.game.screens.MainGameScreen;
@@ -13,7 +14,7 @@ public class Player extends Entity{
     public int health = 25;
     public float shotGap = .2f;
 
-    public Player(float x, float y, float velx, float vely, float width, float height, TextureRegion texture, float scale, float PPM, float angle) {
+    public Player(float x, float y, float velx, float vely, float width, float height, Sprite texture, float scale, float PPM, float angle) {
         super(x, y, velx, vely, width, height, texture, scale, PPM, angle);
     }
 

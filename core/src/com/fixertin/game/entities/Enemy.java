@@ -1,7 +1,10 @@
 package com.fixertin.game.entities;
 
+import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Vector2;
 import com.fixertin.game.ai.*;
 import com.fixertin.game.screens.MainGameScreen;
@@ -14,7 +17,7 @@ public class Enemy extends Entity{
     public int index = 0;
     public float dyingTime = .75f;
     public int health;
-
+    public boolean hit;
 
 
 
@@ -30,12 +33,12 @@ public class Enemy extends Entity{
      * @param PPM     used for drawing the texture
      * @param angle
      */
-    public Enemy(float x, float y, float velx, float vely, float width, float height, TextureRegion[] textures, float scale, float PPM, float angle) {
+    public Enemy(float x, float y, float velx, float vely, float width, float height, Sprite[] textures, float scale, float PPM, float angle) {
         super(x, y, velx, vely, width, height, textures, scale, PPM, angle);
         health = 5;
 
     }
-    public Enemy(float x, float y, float velx, float vely, float width, float height, TextureRegion[] textures, float scale, float PPM, float angle, int health) {
+    public Enemy(float x, float y, float velx, float vely, float width, float height, Sprite[] textures, float scale, float PPM, float angle, int health) {
         super(x, y, velx, vely, width, height, textures, scale, PPM, angle);
         this.health = health;
     }
@@ -63,7 +66,7 @@ public class Enemy extends Entity{
         }
         if(dead){
             if(dyingTimer == 0)
-                activeTexture = textures[2];
+                setActiveTexture(2);
             dyingTimer += deltaTime;
             if(dyingTimer >= dyingTime){
                 setRemoved(true);
@@ -72,20 +75,49 @@ public class Enemy extends Entity{
 
     }
 
+    @Override
+    public void render(Batch batch, ShapeRenderer sp, float deltaTime) {
+        textureWidth = activeTexture.getRegionWidth();
+        textureHeight = activeTexture.getRegionHeight();
+        update(deltaTime);
+        if(hit){
+            activeTexture.setColor(Color.RED);
+            hit = false;
+        } else {
+            activeTexture.setColor(Color.WHITE);
+        }
+        batch.begin();
+        activeTexture.setBounds(position.x - activeTexture.getRegionWidth()/scale/PPM/2f,
+                position.y - activeTexture.getRegionHeight()/scale/PPM/2f,
+                activeTexture.getRegionWidth()/scale/PPM,
+                activeTexture.getRegionHeight()/scale/PPM);
+        activeTexture.draw(batch);
+        batch.end();
+
+        sp.begin(ShapeRenderer.ShapeType.Line);
+        sp.setColor(Color.RED);
+        sp.rect(boundingBox.x - boundingBox.width/2,
+                boundingBox.y - boundingBox.height/2,
+                boundingBox.width,
+                boundingBox.height);
+        sp.end();
+    }
+
     public void removeHealth(int amount){
         health -= amount;
+        hit = true;
     }
 
     public void addMoveTo(float distance, float angle, float speed){
         movements.add(new MoveTo(this, distance, angle, speed));
     }
-    public void addShootArc(TextureRegion texture, float shotgap, float startAngle, float arcSize, float speed){
+    public void addShootArc(Sprite texture, float shotgap, float startAngle, float arcSize, float speed){
         movements.add(new ShootArc(this, texture, shotgap, startAngle, arcSize, speed));
     }
-    public void addShootCircle(TextureRegion texture, float shotgap, float speed){
+    public void addShootCircle(Sprite texture, float shotgap, float speed){
         movements.add(new ShootCircle(this, texture, shotgap, speed));
     }
-    public void addShootAndTurn(TextureRegion texture, float timeUntilFinished, int amount, float spreadAngle, float startAngle, float speed, float incrementAngleAmount, float timeUntilTurn, float shotTimeGap, float acceleration){
+    public void addShootAndTurn(Sprite texture, float timeUntilFinished, int amount, float spreadAngle, float startAngle, float speed, float incrementAngleAmount, float timeUntilTurn, float shotTimeGap, float acceleration){
         movements.add(new ShootAndTurn(this, texture, timeUntilFinished, amount, spreadAngle, startAngle, speed, incrementAngleAmount, timeUntilTurn, shotTimeGap, acceleration));
     }
     public void addWait(float timeUntilFinished){

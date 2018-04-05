@@ -1,5 +1,6 @@
 package com.fixertin.game.ai.patterns;
 
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.MathUtils;
 import com.fixertin.game.entities.Entity;
@@ -11,7 +12,7 @@ public class Arc extends Pattern{
     public float shotgap, startAngle, arcSize;
     public float speed;
 
-    public Arc(Entity shooter, TextureRegion texture, float shotgap, float startAngle, float arcSize, float speed) {
+    public Arc(Entity shooter, Sprite texture, float shotgap, float startAngle, float arcSize, float speed) {
         super(shooter, texture);
         this.shotgap = shotgap;
         this.startAngle = startAngle;

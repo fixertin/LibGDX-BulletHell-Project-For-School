@@ -2,7 +2,7 @@ package com.fixertin.game.entities;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Batch;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
@@ -11,8 +11,8 @@ public class Entity {
     protected Vector2 position, velocity, acceleration;
     protected float width, height, scale, textureWidth, textureHeight, angle;
     protected final float PPM;
-    protected TextureRegion activeTexture;
-    protected TextureRegion[] textures;
+    protected Sprite activeTexture;
+    protected Sprite[] textures;
     protected Rectangle boundingBox;
     protected boolean removed, dead, shooting;
 
@@ -28,7 +28,7 @@ public class Entity {
      * @param scale used for drawing the texture
      * @param PPM used for drawing the texture
      */
-    public Entity(float x, float y, float velx, float vely, float width, float height, TextureRegion texture, float scale, float PPM, float angle){
+    public Entity(float x, float y, float velx, float vely, float width, float height, Sprite texture, float scale, float PPM, float angle){
         position = new Vector2(x, y);
         velocity = new Vector2(velx, vely);
         this.width = width;
@@ -41,7 +41,7 @@ public class Entity {
         textureWidth = texture.getRegionWidth();
         textureHeight = texture.getRegionHeight();
     }
-    public Entity(float x, float y, float velx, float vely, float width, float height, TextureRegion[] textures, float scale, float PPM, float angle){
+    public Entity(float x, float y, float velx, float vely, float width, float height, Sprite[] textures, float scale, float PPM, float angle){
         position = new Vector2(x, y);
         velocity = new Vector2(velx, vely);
         this.width = width;
@@ -55,7 +55,7 @@ public class Entity {
         textureWidth = activeTexture.getRegionWidth();
         textureHeight = activeTexture.getRegionHeight();
     }
-    public Entity(Vector2 position, Vector2 velocity, float width, float height, TextureRegion texture, float scale, float PPM, float angle){
+    public Entity(Vector2 position, Vector2 velocity, float width, float height, Sprite texture, float scale, float PPM, float angle){
         this.position = position;
         this.velocity = velocity;
         this.width = width;
@@ -68,7 +68,7 @@ public class Entity {
         textureWidth = texture.getRegionWidth();
         textureHeight = texture.getRegionHeight();
     }
-    public Entity(float x, float y, Vector2 velocity, float width, float height, TextureRegion texture, float scale, float PPM, float angle, Vector2 acceleration){
+    public Entity(float x, float y, Vector2 velocity, float width, float height, Sprite texture, float scale, float PPM, float angle, Vector2 acceleration){
         this.position = new Vector2(x, y);
         this.velocity = velocity;
         this.width = width;
@@ -129,11 +129,11 @@ public class Entity {
     public void setVelocity(float velx, float vely) {
         velocity.set(velx, vely);
     }
-    public TextureRegion getTexture() {
+    public Sprite getTexture() {
         return activeTexture;
     }
-    public void setTexture(TextureRegion texture) {
-        this.activeTexture = texture;
+    public void setTexture(Sprite texture) {
+        this.activeTexture.setRegion(texture);
     }
     public float getAngle() {
         return angle;
@@ -187,6 +187,6 @@ public class Entity {
         this.removed = removed;
     }
     public void setActiveTexture(int index){
-        activeTexture = textures[index];
+        activeTexture = new Sprite(textures[index]);
     }
 }
