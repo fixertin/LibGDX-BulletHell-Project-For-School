@@ -1,5 +1,6 @@
 package com.fixertin.game.entities;
 
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.fixertin.game.ai.*;
@@ -12,6 +13,8 @@ public class Enemy extends Entity{
     public ArrayList<AI> movements = new ArrayList<AI>();
     public int index = 0;
     public float dyingTime = .75f;
+    public int health;
+
 
 
 
@@ -29,11 +32,20 @@ public class Enemy extends Entity{
      */
     public Enemy(float x, float y, float velx, float vely, float width, float height, TextureRegion[] textures, float scale, float PPM, float angle) {
         super(x, y, velx, vely, width, height, textures, scale, PPM, angle);
+        health = 5;
+
+    }
+    public Enemy(float x, float y, float velx, float vely, float width, float height, TextureRegion[] textures, float scale, float PPM, float angle, int health) {
+        super(x, y, velx, vely, width, height, textures, scale, PPM, angle);
+        this.health = health;
     }
 
     private float dyingTimer=0;
     @Override
     public void update(float deltaTime){
+        if(health <= 0){
+            dead = true;
+        }
         if(!movements.isEmpty() && !dead){
             if(movements.get(index).getState() == null)
                 movements.get(index).reset(this);
@@ -60,6 +72,10 @@ public class Enemy extends Entity{
 
     }
 
+    public void removeHealth(int amount){
+        health -= amount;
+    }
+
     public void addMoveTo(float distance, float angle, float speed){
         movements.add(new MoveTo(this, distance, angle, speed));
     }
@@ -78,4 +94,7 @@ public class Enemy extends Entity{
     public void addMoveInCurve(Vector2[] dataSet, float speed){
         movements.add(new MoveInCurve(this, dataSet, speed));
     }
+
+
+
 }

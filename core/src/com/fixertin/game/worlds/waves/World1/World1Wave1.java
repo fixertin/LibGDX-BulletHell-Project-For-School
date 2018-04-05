@@ -28,7 +28,7 @@ public class World1Wave1 extends Wave {
         test.addWait(.3f);
         test.addShootAndTurn(assets.bitcoin ,7, 4, 90, 0, 40/PPM, 10, 0.05f, 0.2f, -10);
         test.addWait(2);
-        test.addShootAndTurn(assets.hammerAndSickle, 7, 2, 90, 0, 20/PPM, 20, 0.2f, 0.2f, -2);
+        test.addShootAndTurn(assets.email, 7, 2, 90, 0, 20/PPM, 20, 0.2f, 0.2f, -2);
         test.addMoveTo(10/PPM, 90, 5/PPM);
         test.addWait(1f);
         test.addShootArc(assets.email, 20, 270, 360, 15/PPM);

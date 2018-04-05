@@ -78,12 +78,29 @@ public class MainGameScreen extends GameScreen{
             b.render(batch, sp, delta);
             if(isEntityOffScreen(b))
                 b.setRemoved(true);
+            else if(b.getBoundingBox().overlaps(player.getBoundingBox())){
+
+            }
         }
-        for(Entity e : entities){
+        for(Entity pb : playerBullets){
+            pb.render(batch, sp, delta);
+            if(isEntityOffScreen(pb))
+                pb.setRemoved(true);
+            else {
+                for(Enemy e : entities){
+                    if (pb.getBoundingBox().overlaps(e.getBoundingBox())){
+                        e.removeHealth(1);
+                        pb.setRemoved(true);
+                    }
+                }
+            }
+        }
+        for(Enemy e : entities){
             e.render(batch, sp, delta);
         }
         entities.removeIf(entity -> entity.isRemoved());
         bullets.removeIf(bullet -> bullet.isRemoved());
+        playerBullets.removeIf(pbullet -> pbullet.isRemoved());
         player.render(batch, sp, delta);
 
     }

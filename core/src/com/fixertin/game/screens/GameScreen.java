@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.fixertin.game.entities.Enemy;
 import com.fixertin.game.entities.Entity;
 import com.fixertin.game.util.Constant;
 
@@ -17,8 +18,9 @@ public abstract class GameScreen implements Screen{
     protected OrthographicCamera camera = null;
     protected Batch batch = new SpriteBatch();
     protected ShapeRenderer sp = new ShapeRenderer();
-    protected static ArrayList<Entity> entities = new ArrayList<Entity>();
+    protected static ArrayList<Enemy> entities = new ArrayList<Enemy>();
     protected static ArrayList<Entity> bullets = new ArrayList<Entity>();
+    protected static ArrayList<Entity> playerBullets = new ArrayList<Entity>();
     protected final float PPM = Constant.PPM;
     protected final float scale = Constant.scale;
 
@@ -75,12 +77,12 @@ public abstract class GameScreen implements Screen{
         Gdx.app.log(TAG, "WorldRenderer: physical: (" + VIEWPORT.physicalWidth + "," + VIEWPORT.physicalHeight + ")" );
     }
 
-    public static void addEntity(Entity entity){
+    public static void addEntity(Enemy entity){
         if(entity == null)
             return;
         entities.add(entity);
     }
-    public static void removeEntity(Entity entity){
+    public static void removeEntity(Enemy entity){
         if(entity == null)
             return;
         else if(!entities.contains(entity))
@@ -100,11 +102,24 @@ public abstract class GameScreen implements Screen{
             return;
         bullets.remove(entity);
     }
+    public static void addPlayerBullets(Entity entity){
+        if(entity == null)
+            return;
+        playerBullets.add(entity);
+    }
+    public static void removePlayerBullets(Entity entity){
+        if(entity == null)
+            return;
+        else if(!playerBullets.contains(entity))
+            return;
+        playerBullets.remove(entity);
+    }
+
     public static boolean isEntityOffScreen(Entity entity){
-        if((entity.getPosition().x + entity.getTextureWidth()) < 0 - VIEWPORT.viewportWidth/2 ||
-                (entity.getPosition().x - entity.getTextureWidth()) > VIEWPORT.viewportWidth/2 ||
-                (entity.getPosition().y - entity.getTextureHeight()) > VIEWPORT.viewportHeight/2 ||
-                (entity.getPosition().y + entity.getTextureHeight()) < 0 - VIEWPORT.viewportHeight/2) {
+        if((entity.getPosition().x + entity.getTextureWidth()/2f) < 0 - VIEWPORT.viewportWidth/2f || //left
+                (entity.getPosition().x - entity.getTextureWidth()/2f) > VIEWPORT.viewportWidth/2f || //right
+                (entity.getPosition().y - entity.getTextureHeight()/2f) > VIEWPORT.viewportHeight/2f || //up
+                (entity.getPosition().y + entity.getTextureHeight()/2f) < 0 - VIEWPORT.viewportHeight/2f) {//down
             //System.out.println(entity.getPosition().x + " " + entity.getPosition().y);
             //System.out.println(entity.getTextureWidth() + " " + entity.getTextureHeight());
             //System.out.println("Entity removed");
@@ -113,7 +128,16 @@ public abstract class GameScreen implements Screen{
         else
             return false;
     }
-    public static ArrayList<Entity> getEntities(){
+    public static ArrayList<Enemy> getEntities(){
         return entities;
     }
+
+    public static float getViewportWidth(){
+        return VIEWPORT.viewportWidth;
+    }
+    public static float getViewPortHeight(){
+        return VIEWPORT.viewportHeight;
+    }
+
+
 }
