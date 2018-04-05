@@ -11,11 +11,13 @@ import com.fixertin.game.util.Constant;
 
 public class Player extends Entity{
     public float speed = 25f/ Constant.PPM;
-    public int health = 25;
+    public int health, maxHealth;
     public float shotGap = .2f;
 
-    public Player(float x, float y, float velx, float vely, float width, float height, Sprite texture, float scale, float PPM, float angle) {
+    public Player(float x, float y, float velx, float vely, float width, float height, Sprite texture, float scale, float PPM, float angle, int maxHealth) {
         super(x, y, velx, vely, width, height, texture, scale, PPM, angle);
+        this.maxHealth = maxHealth;
+        health = maxHealth;
     }
 
     @Override
@@ -72,5 +74,14 @@ public class Player extends Entity{
                 0));
     }
 
+    public int getHealth() {
+        return health;
+    }
+    public int getMaxHealth() {
+        return maxHealth;
+    }
 
+    public void lowerHealth(int amount){
+        health -= amount;
+    }
 }

@@ -27,11 +27,17 @@ public class MainGameScreen extends GameScreen{
     public static int activeIndex = 0;
     public static Player player;
 
+    public enum states{
+        running,
+        lose,
+        win
+    }
+
 
     @Override
     public void show() {
         assets.loadAssets();
-        player = new Player(0, 0, 0, 0, 30/Constant.PPM/scale, 30/Constant.PPM/scale, assets.bernie, Constant.scale*2.5f, Constant.PPM, 0);
+        player = new Player(0, 0, 0, 0, 30/Constant.PPM/scale, 30/Constant.PPM/scale, assets.bernie, Constant.scale*2.5f, Constant.PPM, 0, 25);
 
         worldManager = new WorldManager(assets);
         worldManager.worlds.get(activeIndex).init();
@@ -79,7 +85,8 @@ public class MainGameScreen extends GameScreen{
             if(isEntityOffScreen(b))
                 b.setRemoved(true);
             else if(b.getBoundingBox().overlaps(player.getBoundingBox())){
-
+                player.lowerHealth(1);
+                b.setRemoved(true);
             }
         }
         for(Entity pb : playerBullets){
@@ -102,7 +109,7 @@ public class MainGameScreen extends GameScreen{
         bullets.removeIf(bullet -> bullet.isRemoved());
         playerBullets.removeIf(pbullet -> pbullet.isRemoved());
         player.render(batch, sp, delta);
-
+        drawHealthBar(-VIEWPORT.viewportWidth/2 + .3f, VIEWPORT.viewportHeight/2 - .6f, 60/PPM, 3.5f/PPM, player);
     }
 
 
@@ -133,4 +140,16 @@ public class MainGameScreen extends GameScreen{
         sp.dispose();
         assets.unloadAssets();
     }
+
+    public void drawHealthBar(float x, float y, float width, float height, Player p){
+        float percent = (float)p.getHealth()/(float)p.getMaxHealth();
+        float healthBarWidth = width * percent;
+        sp.begin(ShapeRenderer.ShapeType.Filled);
+        sp.setColor(Color.SCARLET);
+        sp.rect(x, y, width, height);
+        sp.setColor(Color.GREEN);
+        sp.rect(x, y, healthBarWidth, height);
+        sp.end();
+    }
+
 }
