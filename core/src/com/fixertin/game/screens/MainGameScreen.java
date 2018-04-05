@@ -11,7 +11,9 @@ import com.badlogic.gdx.math.Vector;
 import com.badlogic.gdx.math.Vector2;
 import com.fixertin.game.entities.Enemy;
 import com.fixertin.game.entities.Entity;
+import com.fixertin.game.entities.Player;
 import com.fixertin.game.screens.graphics.MainGameAssets;
+import com.fixertin.game.util.Constant;
 import com.fixertin.game.worlds.World;
 import com.fixertin.game.worlds.waves.WorldManager;
 
@@ -23,11 +25,14 @@ public class MainGameScreen extends GameScreen{
     public static MainGameAssets assets = new MainGameAssets();
     public static WorldManager worldManager;
     public static int activeIndex = 0;
+    public static Player player;
 
 
     @Override
     public void show() {
         assets.loadAssets();
+        player = new Player(0, 0, 0, 0, 5/Constant.PPM, 5/Constant.PPM, assets.bernie, Constant.scale*2.5f, Constant.PPM, 0);
+
         worldManager = new WorldManager(assets);
         worldManager.worlds.get(activeIndex).init();
     }
@@ -69,18 +74,17 @@ public class MainGameScreen extends GameScreen{
 
         sp.end();
 
-        for(Entity e : entities){
-
-            e.render(batch, sp, Gdx.graphics.getDeltaTime());
-        }
-        entities.removeIf(entity -> entity.isRemoved());
         for(Entity b : bullets){
-            b.render(batch, sp, Gdx.graphics.getDeltaTime());
+            b.render(batch, sp, delta);
             if(isEntityOffScreen(b))
                 b.setRemoved(true);
         }
+        for(Entity e : entities){
+            e.render(batch, sp, delta);
+        }
+        entities.removeIf(entity -> entity.isRemoved());
         bullets.removeIf(bullet -> bullet.isRemoved());
-
+        player.render(batch, sp, delta);
 
     }
 

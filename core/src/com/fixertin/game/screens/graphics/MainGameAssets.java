@@ -31,8 +31,8 @@ public class MainGameAssets {
     public void loadAssets(){
         Utility.loadTextureAtlas("textures/test.atlas");
         testAtlas = Utility.getTextureAtlas("textures/test.atlas");
-        Utility.loadTextureAtlas("textures/Bullet.atlas");
-        bulletAtlas = Utility.getTextureAtlas("textures/Bullet.atlas");
+        Utility.loadTextureAtlas("textures/Bullets.atlas");
+        bulletAtlas = Utility.getTextureAtlas("textures/Bullets.atlas");
         Utility.loadTextureAtlas("textures/Heads.atlas");
         headsAtlas = Utility.getTextureAtlas("textures/Heads.atlas");
         //when all atlases are done load regions
@@ -44,8 +44,8 @@ public class MainGameAssets {
         untitled2 = testAtlas.findRegion("Untitled2");
         untitled3 = testAtlas.findRegion("Untitled3");
         untitled4 = testAtlas.findRegion("Untitled4");
-        bitcoin = bulletAtlas.findRegion("Bullet");
-        email = bulletAtlas.findRegion("Email");
+        bitcoin = bulletAtlas.findRegion("Bitcoin");
+        email = bulletAtlas.findRegion("hillaryEmail");
         fist = bulletAtlas.findRegion("fist");
         hammerAndSickle = bulletAtlas.findRegion("hammerAndSickle");
         bernie = headsAtlas.findRegion("bernie");
