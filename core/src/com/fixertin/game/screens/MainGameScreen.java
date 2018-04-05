@@ -31,7 +31,7 @@ public class MainGameScreen extends GameScreen{
     @Override
     public void show() {
         assets.loadAssets();
-        player = new Player(0, 0, 0, 0, 5/Constant.PPM, 5/Constant.PPM, assets.bernie, Constant.scale*2.5f, Constant.PPM, 0);
+        player = new Player(0, 0, 0, 0, 30/Constant.PPM/scale, 30/Constant.PPM/scale, assets.bernie, Constant.scale*2.5f, Constant.PPM, 0);
 
         worldManager = new WorldManager(assets);
         worldManager.worlds.get(activeIndex).init();

@@ -27,7 +27,7 @@ public class CirclePattern extends Pattern{
                             20/Constant.PPM/Constant.scale,
                             20/Constant.PPM/Constant.scale,
                             texture,
-                            Constant.scale*2.5f,
+                            Constant.scale*3f,
                             Constant.PPM,
                             i*shotGap,
                             null)

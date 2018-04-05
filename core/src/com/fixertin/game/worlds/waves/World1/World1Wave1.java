@@ -13,7 +13,7 @@ public class World1Wave1 extends Wave {
 
     @Override
     public void addEnemies() {
-        Enemy test = new Enemy(0, 0,0, 0, 30/PPM/scale, 30/PPM/scale, assets.hillaryFaces, scale*2, PPM, 0);
+        Enemy test = new Enemy(0, 0,0, 0, 70/PPM/scale, 70/PPM/scale, assets.hillaryFaces, scale*2, PPM, 0);
         Vector2[] dataSet = new Vector2[5];
         dataSet[0] = new Vector2(-600.0f/PPM/10, 200.0f/PPM/10);
         dataSet[1] = new Vector2(-400.0f/PPM/10, 350.0f/PPM/10);
