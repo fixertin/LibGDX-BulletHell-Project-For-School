@@ -6,50 +6,64 @@ filter: Nearest,Nearest
 repeat: none
 bernie
   rotate: false
-  xy: 710, 2
-  size: 209, 256
+  xy: 649, 240
+  size: 205, 254
   orig: 209, 256
-  offset: 0, 0
+  offset: 0, 2
+  index: -1
+bernieHappy
+  rotate: false
+  xy: 1058, 239
+  size: 190, 255
+  orig: 192, 256
+  offset: 1, 0
+  index: -1
+bernieSurprise
+  rotate: false
+  xy: 856, 242
+  size: 200, 252
+  orig: 204, 256
+  offset: 0, 4
   index: -1
 hillaryAngry
   rotate: false
-  xy: 251, 2
-  size: 242, 256
+  xy: 2, 2
+  size: 206, 235
   orig: 242, 256
-  offset: 0, 0
+  offset: 18, 11
   index: -1
 hillarySmug
   rotate: false
-  xy: 921, 2
-  size: 208, 256
+  xy: 443, 238
+  size: 204, 256
   orig: 208, 256
-  offset: 0, 0
+  offset: 4, 0
   index: -1
 hillarySuprise
   rotate: false
-  xy: 495, 2
-  size: 213, 256
+  xy: 233, 238
+  size: 208, 256
   orig: 213, 256
   offset: 0, 0
   index: -1
 trumpAngry
   rotate: false
-  xy: 1131, 2
-  size: 190, 256
+  xy: 1430, 247
+  size: 177, 247
   orig: 190, 256
-  offset: 0, 0
+  offset: 3, 2
   index: -1
 trumpSmug
   rotate: false
-  xy: 1323, 2
-  size: 184, 256
+  xy: 1250, 242
+  size: 178, 252
   orig: 184, 256
-  offset: 0, 0
+  offset: 3, 2
   index: -1
 trumpWeird
   rotate: false
-  xy: 2, 2
-  size: 247, 256
+  xy: 2, 239
+  size: 229, 255
   orig: 247, 256
-  offset: 0, 0
+  offset: 4, 0
   index: -1

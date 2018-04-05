@@ -82,6 +82,8 @@ public class Player extends Entity{
     }
 
     public void lowerHealth(int amount){
+        if(health <= 0)
+            return;
         health -= amount;
     }
 }

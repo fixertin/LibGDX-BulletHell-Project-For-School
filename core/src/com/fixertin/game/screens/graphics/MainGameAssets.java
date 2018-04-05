@@ -10,7 +10,8 @@ import java.util.Map;
 public class MainGameAssets {
     private TextureAtlas testAtlas,
             bulletAtlas,
-            headsAtlas;
+            headsAtlas,
+            backgroundAtlas;
     public Sprite untitled,
             untitled2,
             untitled3,
@@ -20,14 +21,20 @@ public class MainGameAssets {
             fist,
             hammerAndSickle,
             bernie,
+            bernieHappy,
+            bernieSurprise,
             hillaryAngry,
             hillarySmug,
             hillarySuprise,
             trumpAngry,
             trumpSmug,
-            trumpWeird;
+            trumpWeird,
+            background,
+            sadBernieBackground,
+            winScreenBackground;
     public Sprite[] hillaryFaces = new Sprite[3],
-                            trumpFaces = new Sprite[3];
+                            trumpFaces = new Sprite[3],
+                            bernieFaces = new Sprite[3];
 
     public void loadAssets(){
         Utility.loadTextureAtlas("textures/test.atlas");
@@ -36,6 +43,8 @@ public class MainGameAssets {
         bulletAtlas = Utility.getTextureAtlas("textures/Bullets.atlas");
         Utility.loadTextureAtlas("textures/Heads.atlas");
         headsAtlas = Utility.getTextureAtlas("textures/Heads.atlas");
+        Utility.loadTextureAtlas("textures/Backgrounds.atlas");
+        backgroundAtlas = Utility.getTextureAtlas("textures/Backgrounds.atlas");
         //when all atlases are done load regions
         setTextureRegions();
     }
@@ -50,6 +59,8 @@ public class MainGameAssets {
         fist = new Sprite(bulletAtlas.findRegion("fist"));
         hammerAndSickle = new Sprite(bulletAtlas.findRegion("hammerAndSickle"));
         bernie = new Sprite(headsAtlas.findRegion("bernie"));
+        bernieHappy = new Sprite(headsAtlas.findRegion("bernieHappy"));
+        bernieSurprise = new Sprite(headsAtlas.findRegion("bernieSurprise"));
 
         hillarySmug = new Sprite(headsAtlas.findRegion("hillarySmug"));
         hillaryAngry = new Sprite(headsAtlas.findRegion("hillaryAngry"));
@@ -64,6 +75,11 @@ public class MainGameAssets {
         trumpFaces[0] = trumpSmug;
         trumpFaces[1] = trumpWeird;
         trumpFaces[2] = trumpAngry;
+
+        background = new Sprite(backgroundAtlas.findRegion("background"));
+        sadBernieBackground = new Sprite(backgroundAtlas.findRegion("sadBernie"));
+        winScreenBackground = new Sprite(backgroundAtlas.findRegion("winScreen"));
+
     }
 
     public void unloadAssets(){

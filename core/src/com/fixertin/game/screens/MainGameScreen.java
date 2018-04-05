@@ -65,13 +65,17 @@ public class MainGameScreen extends GameScreen{
                 activeIndex++;
                 worldManager.worlds.get(activeIndex).init();
             } else {
-                System.out.println("no more worlds");
+                //System.out.println("no more worlds");
             }
         }
 
         //Batch draw
         batch.begin();
-
+        batch.draw(assets.background,
+                -VIEWPORT.viewportWidth/2,
+                -VIEWPORT.viewportHeight/2,
+                VIEWPORT.viewportWidth,
+                VIEWPORT.viewportHeight);
         batch.end();
 
         //ShapeRenderer draw
@@ -110,6 +114,7 @@ public class MainGameScreen extends GameScreen{
         playerBullets.removeIf(pbullet -> pbullet.isRemoved());
         player.render(batch, sp, delta);
         drawHealthBar(-VIEWPORT.viewportWidth/2 + .3f, VIEWPORT.viewportHeight/2 - .6f, 60/PPM, 3.5f/PPM, player);
+
     }
 
 
