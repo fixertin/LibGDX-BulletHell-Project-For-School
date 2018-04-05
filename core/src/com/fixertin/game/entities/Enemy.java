@@ -15,7 +15,7 @@ import java.util.ArrayList;
 public class Enemy extends Entity{
     public ArrayList<AI> movements = new ArrayList<AI>();
     public int index = 0;
-    public float dyingTime = .75f;
+    public float dyingTime = .5f;
     public int health;
     public boolean hit;
 
@@ -80,12 +80,9 @@ public class Enemy extends Entity{
         textureWidth = activeTexture.getRegionWidth();
         textureHeight = activeTexture.getRegionHeight();
         update(deltaTime);
-        if(hit){
-            activeTexture.setColor(Color.RED);
-            hit = false;
-        } else {
-            activeTexture.setColor(Color.WHITE);
-        }
+
+        if(!dead)
+            flashRed(deltaTime);
         batch.begin();
         activeTexture.setBounds(position.x - activeTexture.getRegionWidth()/scale/PPM/2f,
                 position.y - activeTexture.getRegionHeight()/scale/PPM/2f,
@@ -106,6 +103,31 @@ public class Enemy extends Entity{
     public void removeHealth(int amount){
         health -= amount;
         hit = true;
+    }
+
+    private float timer=0;
+    private float lengthOfTimeRed = .17f;
+    private void flashRed(float delta){
+//        if(hit && activeTexture.getColor().toString().substring(0, 5).equalsIgnoreCase(Color.RED.toString().substring(0, 5)))
+//            hit = false;
+//        else if(hit && activeTexture.getColor().toString().substring(0, 5).equalsIgnoreCase(Color.WHITE.toString().substring(0, 5))){ //compares colors without alpha
+//            activeTexture.setColor(Color.RED);
+//        } else if (!hit && activeTexture.getColor().toString().substring(0, 5).equalsIgnoreCase(Color.RED.toString().substring(0, 5))){
+//            activeTexture.setColor(Color.WHITE);
+//        }
+
+        if(hit && timer <= 0){
+            activeTexture.setColor(Color.RED);
+            timer += delta;
+        } else if(hit){
+            timer += delta;
+        }
+        if(timer >= lengthOfTimeRed){
+            activeTexture.setColor(Color.WHITE);
+            timer=0;
+            hit=false;
+        }
+
     }
 
     public void addMoveTo(float distance, float angle, float speed){
