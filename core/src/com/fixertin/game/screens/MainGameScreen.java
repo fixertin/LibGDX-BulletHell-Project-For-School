@@ -9,6 +9,7 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.CatmullRomSpline;
 import com.badlogic.gdx.math.Vector;
 import com.badlogic.gdx.math.Vector2;
+import com.fixertin.game.CommieGame;
 import com.fixertin.game.entities.Enemy;
 import com.fixertin.game.entities.Entity;
 import com.fixertin.game.entities.Player;
@@ -33,11 +34,15 @@ public class MainGameScreen extends GameScreen{
         win
     }
 
+    public MainGameScreen(CommieGame game){
+        super(game);
+
+    }
 
     @Override
     public void show() {
         assets.loadAssets();
-        player = new Player(0, 0, 0, 0, 30/Constant.PPM/scale, 30/Constant.PPM/scale, assets.bernie, Constant.scale*2.5f, Constant.PPM, 0, 25);
+        player = new Player(0, 0, 0, 0, 30/Constant.PPM/scale, 30/Constant.PPM/scale, assets.bernie, Constant.scale*2.5f, Constant.PPM, 0, 1);
 
         worldManager = new WorldManager(assets);
         worldManager.worlds.get(activeIndex).init();
@@ -45,6 +50,8 @@ public class MainGameScreen extends GameScreen{
 
 
 
+    private float alpha = 0;
+    private final float alphaIncrease = .05f;
 
     private FPSLogger logger = new FPSLogger();
     @Override
@@ -52,6 +59,8 @@ public class MainGameScreen extends GameScreen{
         logger.log();
         Gdx.gl.glClearColor(0,0,0,1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+
+
 
         camera.position.set(0,
                 0, 0f);
@@ -61,9 +70,24 @@ public class MainGameScreen extends GameScreen{
 
         if(player.getHealth() <= 0){
             player.setDead(true);
+            if(alpha <= 1){
+                alpha += alphaIncrease;
+            }else if(alpha > 1){
+                alpha = 1;
+            }
+
+            batch.begin();
+            batch.setColor(Color.WHITE.lerp(Color.BLACK, alphaIncrease));
+            batch.draw(assets.fade,
+                    -VIEWPORT.viewportWidth/2,
+                    -VIEWPORT.viewportHeight/2,
+                    VIEWPORT.viewportWidth,
+                    VIEWPORT.viewportHeight);
+            batch.end();
+
         }
 
-        if(!player.isDead()){
+        if(alpha < 1){
             worldManager.worlds.get(activeIndex).update(delta);
             if(worldManager.worlds.get(activeIndex).finished){
                 if(activeIndex+1 < worldManager.worlds.size()){
@@ -74,6 +98,7 @@ public class MainGameScreen extends GameScreen{
                 }
             }
 
+
             //Batch draw
             batch.begin();
             batch.draw(assets.background,
@@ -82,6 +107,7 @@ public class MainGameScreen extends GameScreen{
                     VIEWPORT.viewportWidth,
                     VIEWPORT.viewportHeight);
             batch.end();
+
 
             //ShapeRenderer draw
             sp.begin(ShapeRenderer.ShapeType.Line);
@@ -119,6 +145,8 @@ public class MainGameScreen extends GameScreen{
             playerBullets.removeIf(pbullet -> pbullet.isRemoved());
             player.render(batch, sp, delta);
             drawHealthBar(-VIEWPORT.viewportWidth/2 + .3f, VIEWPORT.viewportHeight/2 - .6f, 60/PPM, 3.5f/PPM, player);
+        } else {
+            game.setScreen(CommieGame.loseScreen);
         }
 
     }

@@ -1,16 +1,37 @@
 package com.fixertin.game.screens;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.g2d.Batch;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.fixertin.game.screens.graphics.MainGameAssets;
 
 public class LostScreen implements Screen {
+    protected Batch batch = new SpriteBatch();
+    protected ShapeRenderer sp = new ShapeRenderer();
+    public static MainGameAssets assets = new MainGameAssets();
+
     @Override
     public void show() {
-
+        assets.loadAssets();
     }
 
+    private final float alphaIncrease = .01f;
     @Override
     public void render(float delta) {
-
+        Gdx.gl.glClearColor(0,0,0,1);
+        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+        batch.begin();
+        batch.setColor(Color.BLACK.lerp(Color.WHITE, alphaIncrease));
+        batch.draw(assets.sadBernieBackground,
+                0,
+                0,
+                assets.sadBernieBackground.getRegionWidth(),
+                assets.sadBernieBackground.getRegionHeight());
+        batch.end();
     }
 
     @Override

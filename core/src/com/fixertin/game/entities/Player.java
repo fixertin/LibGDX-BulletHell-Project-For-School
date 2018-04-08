@@ -59,7 +59,7 @@ public class Player extends Entity{
     }
 
     private void die(){
-        setActiveTexture(2);
+
     }
 
     private void isGoingOffScreen(Vector2 position){

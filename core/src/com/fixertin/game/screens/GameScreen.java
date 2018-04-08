@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.fixertin.game.CommieGame;
 import com.fixertin.game.entities.Enemy;
 import com.fixertin.game.entities.Entity;
 import com.fixertin.game.util.Constant;
@@ -23,6 +24,7 @@ public abstract class GameScreen implements Screen{
     protected static ArrayList<Entity> playerBullets = new ArrayList<Entity>();
     protected final float PPM = Constant.PPM;
     protected final float scale = Constant.scale;
+    protected CommieGame game;
 
     protected static class VIEWPORT{
         static float viewportWidth;
@@ -36,7 +38,8 @@ public abstract class GameScreen implements Screen{
     }
 
 
-    public GameScreen(){
+    public GameScreen(CommieGame game){
+        this.game = game;
         setupViewport(10,10);
         camera = new OrthographicCamera();
         camera.setToOrtho(false, VIEWPORT.viewportWidth,
