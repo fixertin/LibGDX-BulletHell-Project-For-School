@@ -9,12 +9,12 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 
 public class Utility {
-    public static final AssetManager ASSET_MANAGER = new AssetManager();
+    public  final AssetManager ASSET_MANAGER = new AssetManager();
 
-    private static final String TAG = Utility.class.getSimpleName();
-    private static InternalFileHandleResolver filePathResolver = new InternalFileHandleResolver();
+    private  final String TAG = Utility.class.getSimpleName();
+    private  InternalFileHandleResolver filePathResolver = new InternalFileHandleResolver();
 
-    public static void unloadAsset(String assetFilenamePath){
+    public  void unloadAsset(String assetFilenamePath){
         // once the asset manager is done loading
         if(ASSET_MANAGER.isLoaded(assetFilenamePath) ){
             ASSET_MANAGER.unload(assetFilenamePath);
@@ -22,19 +22,19 @@ public class Utility {
             Gdx.app.debug(TAG, "Asset is not loaded; Nothing to unload: "+ assetFilenamePath );
         }
     }
-    public static float loadCompleted(){
+    public  float loadCompleted(){
         return ASSET_MANAGER.getProgress();
     }
-    public static int numberAssetsQueued(){
+    public  int numberAssetsQueued(){
         return ASSET_MANAGER.getQueuedAssets();
     }
-    public static boolean updateAssetLoading(){
+    public  boolean updateAssetLoading(){
         return ASSET_MANAGER.update();
     }
-    public static boolean isAssetLoaded(String fileName){
+    public  boolean isAssetLoaded(String fileName){
         return ASSET_MANAGER.isLoaded(fileName);
     }
-    public static void loadTextureAsset(String textureFilenamePath){
+    public  void loadTextureAsset(String textureFilenamePath){
         if( textureFilenamePath == null || textureFilenamePath.isEmpty()){
             return;
         }
@@ -51,7 +51,7 @@ public class Utility {
                     textureFilenamePath );
         }
     }
-    public static Texture getTextureAsset(String textureFilenamePath){
+    public Texture getTextureAsset(String textureFilenamePath){
         Texture texture = null;
         // once the asset manager is done loading
         if(ASSET_MANAGER.isLoaded(textureFilenamePath) ){
@@ -63,7 +63,7 @@ public class Utility {
         }
         return texture;
     }
-    public static void loadTextureAtlas(String textureFilenamePath){
+    public void loadTextureAtlas(String textureFilenamePath){
         if( textureFilenamePath == null || textureFilenamePath.isEmpty()){
             return;
         }
@@ -80,7 +80,7 @@ public class Utility {
                     textureFilenamePath );
         }
     }
-    public static TextureAtlas getTextureAtlas(String textureFilenamePath){
+    public  TextureAtlas getTextureAtlas(String textureFilenamePath){
         TextureAtlas texture = null;
         // once the asset manager is done loading
         if(ASSET_MANAGER.isLoaded(textureFilenamePath) ){
@@ -92,7 +92,7 @@ public class Utility {
         }
         return texture;
     }
-    public static void dispose(){
+    public  void dispose(){
         ASSET_MANAGER.dispose();
     }
 }
