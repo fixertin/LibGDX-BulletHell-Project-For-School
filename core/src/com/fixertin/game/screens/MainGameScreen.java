@@ -59,61 +59,67 @@ public class MainGameScreen extends GameScreen{
         batch.setProjectionMatrix(camera.combined);
         sp.setProjectionMatrix(camera.combined);
 
-        worldManager.worlds.get(activeIndex).update(delta);
-        if(worldManager.worlds.get(activeIndex).finished){
-            if(activeIndex+1 < worldManager.worlds.size()){
-                activeIndex++;
-                worldManager.worlds.get(activeIndex).init();
-            } else {
-                //System.out.println("no more worlds");
-            }
+        if(player.getHealth() <= 0){
+            player.setDead(true);
         }
 
-        //Batch draw
-        batch.begin();
-        batch.draw(assets.background,
-                -VIEWPORT.viewportWidth/2,
-                -VIEWPORT.viewportHeight/2,
-                VIEWPORT.viewportWidth,
-                VIEWPORT.viewportHeight);
-        batch.end();
-
-        //ShapeRenderer draw
-        sp.begin(ShapeRenderer.ShapeType.Line);
-        sp.setColor(Color.RED);
-
-        sp.end();
-
-        for(Entity b : bullets){
-            b.render(batch, sp, delta);
-            if(isEntityOffScreen(b))
-                b.setRemoved(true);
-            else if(b.getBoundingBox().overlaps(player.getBoundingBox())){
-                player.lowerHealth(1);
-                b.setRemoved(true);
+        if(!player.isDead()){
+            worldManager.worlds.get(activeIndex).update(delta);
+            if(worldManager.worlds.get(activeIndex).finished){
+                if(activeIndex+1 < worldManager.worlds.size()){
+                    activeIndex++;
+                    worldManager.worlds.get(activeIndex).init();
+                } else {
+                    //System.out.println("no more worlds");
+                }
             }
-        }
-        for(Entity pb : playerBullets){
-            pb.render(batch, sp, delta);
-            if(isEntityOffScreen(pb))
-                pb.setRemoved(true);
-            else {
-                for(Enemy e : entities){
-                    if (pb.getBoundingBox().overlaps(e.getBoundingBox())){
-                        e.removeHealth(1);
-                        pb.setRemoved(true);
+
+            //Batch draw
+            batch.begin();
+            batch.draw(assets.background,
+                    -VIEWPORT.viewportWidth/2,
+                    -VIEWPORT.viewportHeight/2,
+                    VIEWPORT.viewportWidth,
+                    VIEWPORT.viewportHeight);
+            batch.end();
+
+            //ShapeRenderer draw
+            sp.begin(ShapeRenderer.ShapeType.Line);
+            sp.setColor(Color.RED);
+
+            sp.end();
+
+            for(Entity b : bullets){
+                b.render(batch, sp, delta);
+                if(isEntityOffScreen(b))
+                    b.setRemoved(true);
+                else if(b.getBoundingBox().overlaps(player.getBoundingBox())){
+                    player.lowerHealth(1);
+                    b.setRemoved(true);
+                }
+            }
+            for(Entity pb : playerBullets){
+                pb.render(batch, sp, delta);
+                if(isEntityOffScreen(pb))
+                    pb.setRemoved(true);
+                else {
+                    for(Enemy e : entities){
+                        if (pb.getBoundingBox().overlaps(e.getBoundingBox())){
+                            e.removeHealth(1);
+                            pb.setRemoved(true);
+                        }
                     }
                 }
             }
+            for(Enemy e : entities){
+                e.render(batch, sp, delta);
+            }
+            entities.removeIf(entity -> entity.isRemoved());
+            bullets.removeIf(bullet -> bullet.isRemoved());
+            playerBullets.removeIf(pbullet -> pbullet.isRemoved());
+            player.render(batch, sp, delta);
+            drawHealthBar(-VIEWPORT.viewportWidth/2 + .3f, VIEWPORT.viewportHeight/2 - .6f, 60/PPM, 3.5f/PPM, player);
         }
-        for(Enemy e : entities){
-            e.render(batch, sp, delta);
-        }
-        entities.removeIf(entity -> entity.isRemoved());
-        bullets.removeIf(bullet -> bullet.isRemoved());
-        playerBullets.removeIf(pbullet -> pbullet.isRemoved());
-        player.render(batch, sp, delta);
-        drawHealthBar(-VIEWPORT.viewportWidth/2 + .3f, VIEWPORT.viewportHeight/2 - .6f, 60/PPM, 3.5f/PPM, player);
 
     }
 

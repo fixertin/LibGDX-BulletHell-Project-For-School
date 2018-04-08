@@ -22,12 +22,16 @@ public class Player extends Entity{
 
     @Override
     public void update(float deltaTime){
-        input(deltaTime);
-        position.mulAdd(velocity, deltaTime);
-        if(acceleration != null)
-            velocity.mulAdd(acceleration, deltaTime);
-        //centerBoundingBoxOnTexture();
-        updateBoundingBox();
+        if(!dead){
+            input(deltaTime);
+            position.mulAdd(velocity, deltaTime);
+            if(acceleration != null)
+                velocity.mulAdd(acceleration, deltaTime);
+            //centerBoundingBoxOnTexture();
+            updateBoundingBox();
+        } else {
+            die();
+        }
     }
 
     private float shootTimer=shotGap;
@@ -52,6 +56,10 @@ public class Player extends Entity{
         if(shootTimer>0){
             shootTimer -= delta;
         }
+    }
+
+    private void die(){
+        setActiveTexture(2);
     }
 
     private void isGoingOffScreen(Vector2 position){
