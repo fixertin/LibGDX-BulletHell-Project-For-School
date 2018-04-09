@@ -5,11 +5,10 @@ import com.fixertin.game.ai.patterns.Shot;
 import com.fixertin.game.entities.Enemy;
 
 public class ShootAndTurn extends AI{
-    private Shot p;
+    private Shot[] p;
     private float timeUntilFinished;
     private int shotFrameGap, framesUntilTurn;
     private float overallTimer = 0;
-
     private int currentFrameTurn;
     private int currentFrameShoot;
 
@@ -17,7 +16,22 @@ public class ShootAndTurn extends AI{
                         float spreadAngle, float startAngle, float speed, float incrementAngleAmount,
                         int framesUntilTurn, int shotFrameGap, float acceleration) {
         super(e);
-        p = new Shot(e, texture, amount, spreadAngle, startAngle, speed, incrementAngleAmount, acceleration);
+        p = new Shot[1];
+        p[0] = new Shot(e, texture, amount, spreadAngle, startAngle, speed, incrementAngleAmount, acceleration);
+        this.framesUntilTurn = framesUntilTurn;
+        this.shotFrameGap = shotFrameGap;
+        this.timeUntilFinished = timeUntilFinished;
+        currentFrameShoot = shotFrameGap;
+    }
+    public ShootAndTurn(Enemy e, Sprite texture, int groupAmount, float groupSpreadAngle, float timeUntilFinished, int amount,
+                        float spreadAngle, float startAngle, float speed, float incrementAngleAmount,
+                        int framesUntilTurn, int shotFrameGap, float acceleration) {
+        super(e);
+        p = new Shot[groupAmount];
+        for(int i=0; i<p.length; i++){
+            p[i] = new Shot(e, texture, amount, spreadAngle, startAngle + i*groupSpreadAngle, speed, incrementAngleAmount, acceleration);
+        }
+
         this.framesUntilTurn = framesUntilTurn;
         this.shotFrameGap = shotFrameGap;
         this.timeUntilFinished = timeUntilFinished;
@@ -36,7 +50,7 @@ public class ShootAndTurn extends AI{
         if(isRunning()) {
             overallTimer += delta;
             if (currentFrameTurn >= framesUntilTurn){
-                p.turn();
+                turnShots();
                 currentFrameTurn=0;
             }
             currentFrameTurn++;
@@ -44,11 +58,11 @@ public class ShootAndTurn extends AI{
                 //only shoot when timer is >= shotFrameGap
                 currentFrameShoot--;
                 if(currentFrameShoot <= 0){
-                    p.fillBullets();
+                    fillShots();
                     currentFrameShoot = shotFrameGap;
                 }
             } else {
-                p.fillBullets();
+                fillShots();
             }
             if(overallTimer >= timeUntilFinished && timeUntilFinished > 0){
                 e.setActiveTexture(0);
@@ -56,4 +70,16 @@ public class ShootAndTurn extends AI{
             }
         }
     }
+
+    private void turnShots(){
+        for(Shot s : p){
+            s.turn();
+        }
+    }
+    private void fillShots(){
+        for(Shot s : p){
+            s.fillBullets();
+        }
+    }
+
 }

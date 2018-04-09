@@ -145,6 +145,12 @@ public class Enemy extends Entity{
         movements.add(new ShootAndTurn(this, texture, timeUntilFinished, amount, spreadAngle, startAngle,
                 speed, incrementAngleAmount, framesUntilTurn, shotFrameGap, acceleration));
     }
+    public void addShootAndTurn(Sprite texture, int groupAmount, float groupSpreadAngle, float timeUntilFinished, int amount, float spreadAngle,
+                                float startAngle, float speed, float incrementAngleAmount, int framesUntilTurn,
+                                int shotFrameGap, float acceleration){
+        movements.add(new ShootAndTurn(this, texture, groupAmount, groupSpreadAngle, timeUntilFinished, amount, spreadAngle, startAngle,
+                speed, incrementAngleAmount, framesUntilTurn, shotFrameGap, acceleration));
+    }
     public void addWait(float timeUntilFinished){
         movements.add(new Wait(this, timeUntilFinished));
     }
