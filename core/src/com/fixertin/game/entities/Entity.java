@@ -16,6 +16,7 @@ public class Entity {
     protected Rectangle boundingBox;
     protected boolean removed, dead, shooting;
 
+
     /**
      *
      * @param x midpoint x of the texture and bounding box. not scaled for ppm

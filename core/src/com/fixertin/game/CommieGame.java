@@ -3,14 +3,12 @@ package com.fixertin.game;
 import com.badlogic.gdx.Game;
 
 import com.badlogic.gdx.Screen;
-import com.fixertin.game.screens.GameScreen;
-import com.fixertin.game.screens.LostScreen;
-import com.fixertin.game.screens.MainGameScreen;
-import com.fixertin.game.screens.Test;
+import com.fixertin.game.screens.*;
 
 public class CommieGame extends Game {
 	public static GameScreen mainGameScreen;
 	public static LostScreen loseScreen;
+	public static WinScreen winScreen;
 	public static Test test;
 
 
@@ -19,6 +17,7 @@ public class CommieGame extends Game {
 		mainGameScreen = new MainGameScreen(this);
 		test = new Test();
 		loseScreen = new LostScreen();
+		winScreen = new WinScreen();
 		setScreen(mainGameScreen);
 	}
 	
@@ -27,6 +26,7 @@ public class CommieGame extends Game {
 		mainGameScreen.dispose();
 		test.dispose();
 		loseScreen.dispose();
+		winScreen.dispose();
 	}
 
 

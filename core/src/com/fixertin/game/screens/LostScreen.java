@@ -14,6 +14,9 @@ public class LostScreen implements Screen {
     protected ShapeRenderer sp = new ShapeRenderer();
     public static MainGameAssets assets = new MainGameAssets();
 
+    public Color black = new Color(0, 0, 0, 1);
+    public Color white = new Color(1, 1, 1, 1);
+
     @Override
     public void show() {
         assets.loadAssets();
@@ -25,13 +28,15 @@ public class LostScreen implements Screen {
         Gdx.gl.glClearColor(0,0,0,1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         batch.begin();
-        batch.setColor(Color.BLACK.lerp(Color.WHITE, alphaIncrease));
+        batch.setColor(black.lerp(white, alphaIncrease));
         batch.draw(assets.sadBernieBackground,
                 0,
                 0,
                 assets.sadBernieBackground.getRegionWidth(),
                 assets.sadBernieBackground.getRegionHeight());
         batch.end();
+        //System.out.println(Color.WHITE.toString());
+
     }
 
     @Override
@@ -56,6 +61,6 @@ public class LostScreen implements Screen {
 
     @Override
     public void dispose() {
-
+        assets.unloadAssets();
     }
 }

@@ -9,6 +9,8 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.CatmullRomSpline;
 import com.badlogic.gdx.math.Vector;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.utils.viewport.Viewport;
 import com.fixertin.game.CommieGame;
 import com.fixertin.game.entities.Enemy;
 import com.fixertin.game.entities.Entity;
@@ -28,6 +30,10 @@ public class MainGameScreen extends GameScreen{
     public static int activeIndex = 0;
     public static Player player;
 
+    public boolean win = false;
+
+
+
     public enum states{
         running,
         lose,
@@ -39,10 +45,15 @@ public class MainGameScreen extends GameScreen{
 
     }
 
+
+
     @Override
     public void show() {
         assets.loadAssets();
-        player = new Player(0, 0, 0, 0, 30/Constant.PPM/scale, 30/Constant.PPM/scale, assets.bernie, Constant.scale*2.5f, Constant.PPM, 0, 1);
+        player = new Player(0, 0, 0, 0,
+                30/Constant.PPM/scale, 30/Constant.PPM/scale,
+                assets.bernie, Constant.scale*2.5f, Constant.PPM,
+                0, 1);
 
         worldManager = new WorldManager(assets);
         worldManager.worlds.get(activeIndex).init();
@@ -51,7 +62,7 @@ public class MainGameScreen extends GameScreen{
 
 
     private float alpha = 0;
-    private final float alphaIncrease = .05f;
+    private final float alphaIncrease = .01f;
 
     private FPSLogger logger = new FPSLogger();
     @Override
@@ -68,24 +79,17 @@ public class MainGameScreen extends GameScreen{
         batch.setProjectionMatrix(camera.combined);
         sp.setProjectionMatrix(camera.combined);
 
-        if(player.getHealth() <= 0){
+
+        if(player.getHealth() <= 0 || win){
             player.setDead(true);
             if(alpha <= 1){
                 alpha += alphaIncrease;
             }else if(alpha > 1){
                 alpha = 1;
             }
-
-            batch.begin();
-            batch.setColor(Color.WHITE.lerp(Color.BLACK, alphaIncrease));
-            batch.draw(assets.fade,
-                    -VIEWPORT.viewportWidth/2,
-                    -VIEWPORT.viewportHeight/2,
-                    VIEWPORT.viewportWidth,
-                    VIEWPORT.viewportHeight);
-            batch.end();
-
         }
+
+
 
         if(alpha < 1){
             worldManager.worlds.get(activeIndex).update(delta);
@@ -94,7 +98,7 @@ public class MainGameScreen extends GameScreen{
                     activeIndex++;
                     worldManager.worlds.get(activeIndex).init();
                 } else {
-                    //System.out.println("no more worlds");
+                    win = true;
                 }
             }
 
@@ -145,9 +149,24 @@ public class MainGameScreen extends GameScreen{
             playerBullets.removeIf(pbullet -> pbullet.isRemoved());
             player.render(batch, sp, delta);
             drawHealthBar(-VIEWPORT.viewportWidth/2 + .3f, VIEWPORT.viewportHeight/2 - .6f, 60/PPM, 3.5f/PPM, player);
-        } else {
+
+        } else if(!win){
             game.setScreen(CommieGame.loseScreen);
+        } else if(win){
+            game.setScreen(CommieGame.winScreen);
         }
+
+        Gdx.gl.glEnable(GL20.GL_BLEND);
+        Gdx.gl.glBlendFunc(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA);
+        sp.setProjectionMatrix(camera.combined);
+        sp.begin(ShapeRenderer.ShapeType.Filled);
+        sp.setColor(new Color(0, 0, 0, alpha));
+        sp.rect(-VIEWPORT.viewportWidth/2,
+                -VIEWPORT.viewportHeight/2,
+                VIEWPORT.viewportWidth,
+                VIEWPORT.viewportHeight);
+        sp.end();
+        Gdx.gl.glDisable(GL20.GL_BLEND);
 
     }
 
