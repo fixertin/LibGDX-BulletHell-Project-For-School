@@ -13,7 +13,8 @@ public class World1Wave1 extends Wave {
 
     @Override
     public void addEnemies() {
-        Enemy test = new Enemy(0, 0,0, 0, 70/PPM/scale, 70/PPM/scale, assets.hillaryFaces, scale*2, PPM, 0);
+        Enemy test = new Enemy(0, 0,0, 0, 70/PPM/scale,
+                70/PPM/scale, assets.hillaryFaces, scale*2, PPM, 0);
         Vector2[] dataSet = new Vector2[5];
         dataSet[0] = new Vector2(-600.0f/PPM/10, 200.0f/PPM/10);
         dataSet[1] = new Vector2(-400.0f/PPM/10, 350.0f/PPM/10);
@@ -22,13 +23,16 @@ public class World1Wave1 extends Wave {
         dataSet[4] = new Vector2(100.0f/PPM/10, 120.0f/PPM/10);
         test.addMoveInCurve(dataSet, 0.2f);
         test.addWait(.5f);
-        test.addShootAndTurn(assets.email, 4.5f, 2, 180, 0, 30/PPM, 10, 0.1f, 0.2f, -5);
+        test.addShootAndTurn(assets.email, 4.5f, 2, 180, 0,
+                30/PPM, 10, 10, 10, -5);
         test.addWait(1f);
         test.addMoveTo(10/PPM, 180, 20/PPM);
         test.addWait(.3f);
-        test.addShootAndTurn(assets.bitcoin ,7, 4, 90, 0, 40/PPM, 10, 0.05f, 0.2f, -10);
+        test.addShootAndTurn(assets.email ,7, 4, 90, 0, 40/PPM,
+                10, 5, 10, -10);
         test.addWait(2);
-        test.addShootAndTurn(assets.email, 7, 2, 90, 0, 20/PPM, 20, 0.2f, 0.2f, -2);
+        test.addShootAndTurn(assets.email, 7, 2, 90, 0, 20/PPM,
+                20, 10, 10, -2);
         test.addMoveTo(10/PPM, 90, 5/PPM);
         test.addWait(1f);
         test.addShootArc(assets.email, 20, 270, 360, 15/PPM);

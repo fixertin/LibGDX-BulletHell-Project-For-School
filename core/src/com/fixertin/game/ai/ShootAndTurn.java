@@ -1,24 +1,27 @@
 package com.fixertin.game.ai;
 
 import com.badlogic.gdx.graphics.g2d.Sprite;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.fixertin.game.ai.patterns.Shot;
 import com.fixertin.game.entities.Enemy;
 
 public class ShootAndTurn extends AI{
     private Shot p;
-    private int amount = 0;
-    private float shotTimeGap, timeUntilFinished, timeUntilTurn;
-    private float timer = 0;
-    private float turnTimer = 0;
+    private float timeUntilFinished;
+    private int shotFrameGap, framesUntilTurn;
     private float overallTimer = 0;
 
-    public ShootAndTurn(Enemy e, Sprite texture, float timeUntilFinished, int amount, float spreadAngle, float startAngle, float speed, float incrementAngleAmount, float timeUntilTurn, float shotTimeGap, float acceleration) {
+    private int currentFrameTurn;
+    private int currentFrameShoot;
+
+    public ShootAndTurn(Enemy e, Sprite texture, float timeUntilFinished, int amount,
+                        float spreadAngle, float startAngle, float speed, float incrementAngleAmount,
+                        int framesUntilTurn, int shotFrameGap, float acceleration) {
         super(e);
         p = new Shot(e, texture, amount, spreadAngle, startAngle, speed, incrementAngleAmount, acceleration);
-        this.timeUntilTurn = timeUntilTurn;
-        this.shotTimeGap = shotTimeGap;
+        this.framesUntilTurn = framesUntilTurn;
+        this.shotFrameGap = shotFrameGap;
         this.timeUntilFinished = timeUntilFinished;
+        currentFrameShoot = shotFrameGap;
     }
 
     @Override
@@ -32,21 +35,20 @@ public class ShootAndTurn extends AI{
     public void update(float delta) {
         if(isRunning()) {
             overallTimer += delta;
-            if (turnTimer >= timeUntilTurn){
+            if (currentFrameTurn >= framesUntilTurn){
                 p.turn();
-                turnTimer=0;
+                currentFrameTurn=0;
             }
-            turnTimer += delta;
-            if(shotTimeGap > 0){
-                //only shoot when timer is >= shotTimeGap
-                timer -= delta;
-                if(timer <= 0){
+            currentFrameTurn++;
+            if(shotFrameGap > 0){
+                //only shoot when timer is >= shotFrameGap
+                currentFrameShoot--;
+                if(currentFrameShoot <= 0){
                     p.fillBullets();
-                    timer = shotTimeGap;
+                    currentFrameShoot = shotFrameGap;
                 }
             } else {
                 p.fillBullets();
-                timer = shotTimeGap;
             }
             if(overallTimer >= timeUntilFinished && timeUntilFinished > 0){
                 e.setActiveTexture(0);

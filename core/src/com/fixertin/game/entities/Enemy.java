@@ -139,8 +139,11 @@ public class Enemy extends Entity{
     public void addShootCircle(Sprite texture, float shotgap, float speed){
         movements.add(new ShootCircle(this, texture, shotgap, speed));
     }
-    public void addShootAndTurn(Sprite texture, float timeUntilFinished, int amount, float spreadAngle, float startAngle, float speed, float incrementAngleAmount, float timeUntilTurn, float shotTimeGap, float acceleration){
-        movements.add(new ShootAndTurn(this, texture, timeUntilFinished, amount, spreadAngle, startAngle, speed, incrementAngleAmount, timeUntilTurn, shotTimeGap, acceleration));
+    public void addShootAndTurn(Sprite texture, float timeUntilFinished, int amount, float spreadAngle,
+                                float startAngle, float speed, float incrementAngleAmount, int framesUntilTurn,
+                                int shotFrameGap, float acceleration){
+        movements.add(new ShootAndTurn(this, texture, timeUntilFinished, amount, spreadAngle, startAngle,
+                speed, incrementAngleAmount, framesUntilTurn, shotFrameGap, acceleration));
     }
     public void addWait(float timeUntilFinished){
         movements.add(new Wait(this, timeUntilFinished));

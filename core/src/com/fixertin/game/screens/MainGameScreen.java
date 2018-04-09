@@ -53,7 +53,7 @@ public class MainGameScreen extends GameScreen{
         player = new Player(0, 0, 0, 0,
                 30/Constant.PPM/scale, 30/Constant.PPM/scale,
                 assets.bernie, Constant.scale*2.5f, Constant.PPM,
-                0, 1);
+                0, 15);
 
         worldManager = new WorldManager(assets);
         worldManager.worlds.get(activeIndex).init();
