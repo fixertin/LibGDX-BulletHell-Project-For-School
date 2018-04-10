@@ -1,5 +1,6 @@
 package com.fixertin.game.screens.graphics;
 
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -8,6 +9,10 @@ import com.fixertin.game.util.Utility;
 import java.util.Map;
 
 public class MainGameAssets {
+    public Music winMusic,
+            loseMusic,
+            gameMusic;
+
     private TextureAtlas testAtlas,
             bulletAtlas,
             headsAtlas,
@@ -54,6 +59,13 @@ public class MainGameAssets {
         backgroundAtlas = utility.getTextureAtlas("textures/Backgrounds.atlas");
         //when all atlases are done load regions
         setTextureRegions();
+        utility.loadMusic("music/gameSong.mp3");
+        gameMusic = utility.getMusic("music/gameSong.mp3");
+        utility.loadMusic("music/winSong.mp3");
+        winMusic = utility.getMusic("music/winSong.mp3");
+        utility.loadMusic("music/loseSong.mp3");
+        loseMusic = utility.getMusic("music/loseSong.mp3");
+
     }
 
     private void setTextureRegions(){

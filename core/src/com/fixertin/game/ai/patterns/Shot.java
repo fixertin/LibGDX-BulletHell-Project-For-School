@@ -11,10 +11,12 @@ import com.fixertin.game.util.Constant;
 
 public class Shot extends Pattern{
     private int amount;
-    private float spreadAngle, startAngle, speed, incrementAngleAmount;
+    private boolean reverse, negative;
+    private float spreadAngle, startAngle, speed, incrementAngleAmount, rateOfTurn;
     private float acceleration;
+    private float maxTurnSpeed = 30;
 
-    public Shot(Entity shooter, Sprite texture, int amount, float spreadAngle, float startAngle, float speed, float incrementAngleAmount, float acceleration) {
+    public Shot(Entity shooter, Sprite texture, int amount, float spreadAngle, float startAngle, float speed, float incrementAngleAmount, float acceleration, float rateOfTurn, boolean reverse) {
         super(shooter, texture);
         this.amount = amount;
         this.spreadAngle = spreadAngle;
@@ -22,6 +24,11 @@ public class Shot extends Pattern{
         this.speed = speed;
         this.incrementAngleAmount = incrementAngleAmount;
         this.acceleration = acceleration;
+        this.rateOfTurn = rateOfTurn;
+        this.reverse = reverse;
+        if(rateOfTurn < 0){
+            negative = true;
+        }
     }
 
     @Override
@@ -47,4 +54,26 @@ public class Shot extends Pattern{
         startAngle += incrementAngleAmount;
     }
 
+    public void turnLogic(){
+        if(incrementAngleAmount >= maxTurnSpeed && !negative){
+            incrementAngleAmount = maxTurnSpeed;
+            if(reverse){
+                rateOfTurn = -rateOfTurn;
+                negative = true;
+            }
+        }
+        if(incrementAngleAmount <= -maxTurnSpeed && negative){
+            incrementAngleAmount = -maxTurnSpeed;
+            if(reverse){
+                rateOfTurn = -rateOfTurn;
+                negative = false;
+            }
+        }
+        if(reverse){
+            incrementAngleAmount += rateOfTurn;
+        } else if(incrementAngleAmount < maxTurnSpeed){
+            incrementAngleAmount += rateOfTurn;
+        }
+
+    }
 }

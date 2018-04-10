@@ -91,13 +91,13 @@ public class Enemy extends Entity{
         activeTexture.draw(batch);
         batch.end();
 
-        sp.begin(ShapeRenderer.ShapeType.Line);
-        sp.setColor(Color.RED);
-        sp.rect(boundingBox.x - boundingBox.width/2,
-                boundingBox.y - boundingBox.height/2,
-                boundingBox.width,
-                boundingBox.height);
-        sp.end();
+//        sp.begin(ShapeRenderer.ShapeType.Line);
+//        sp.setColor(Color.RED);
+//        sp.rect(boundingBox.x - boundingBox.width/2,
+//                boundingBox.y - boundingBox.height/2,
+//                boundingBox.width,
+//                boundingBox.height);
+//        sp.end();
     }
 
     public void removeHealth(int amount){
@@ -141,15 +141,15 @@ public class Enemy extends Entity{
     }
     public void addShootAndTurn(Sprite texture, float timeUntilFinished, int amount, float spreadAngle,
                                 float startAngle, float speed, float incrementAngleAmount, int framesUntilTurn,
-                                int shotFrameGap, float acceleration){
+                                int shotFrameGap, float acceleration, float rateOfTurn, boolean reverse){
         movements.add(new ShootAndTurn(this, texture, timeUntilFinished, amount, spreadAngle, startAngle,
-                speed, incrementAngleAmount, framesUntilTurn, shotFrameGap, acceleration));
+                speed, incrementAngleAmount, framesUntilTurn, shotFrameGap, acceleration, rateOfTurn, reverse));
     }
     public void addShootAndTurn(Sprite texture, int groupAmount, float groupSpreadAngle, float timeUntilFinished, int amount, float spreadAngle,
                                 float startAngle, float speed, float incrementAngleAmount, int framesUntilTurn,
-                                int shotFrameGap, float acceleration){
+                                int shotFrameGap, float acceleration, float rateOfTurn, boolean reverse){
         movements.add(new ShootAndTurn(this, texture, groupAmount, groupSpreadAngle, timeUntilFinished, amount, spreadAngle, startAngle,
-                speed, incrementAngleAmount, framesUntilTurn, shotFrameGap, acceleration));
+                speed, incrementAngleAmount, framesUntilTurn, shotFrameGap, acceleration, rateOfTurn, reverse));
     }
     public void addWait(float timeUntilFinished){
         movements.add(new Wait(this, timeUntilFinished));

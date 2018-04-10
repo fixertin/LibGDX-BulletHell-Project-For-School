@@ -2,9 +2,11 @@ package com.fixertin.game.util;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetManager;
+import com.badlogic.gdx.assets.loaders.MusicLoader;
 import com.badlogic.gdx.assets.loaders.TextureAtlasLoader;
 import com.badlogic.gdx.assets.loaders.TextureLoader;
 import com.badlogic.gdx.assets.loaders.resolvers.InternalFileHandleResolver;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 
@@ -92,6 +94,33 @@ public class Utility {
         }
         return texture;
     }
+
+    public void loadMusic(String musicFilenamePath){
+        if( musicFilenamePath == null || musicFilenamePath.isEmpty()) {
+            return;
+        }
+        //load music
+        if(filePathResolver.resolve(musicFilenamePath).exists()){
+            ASSET_MANAGER.setLoader(Music.class, new MusicLoader(filePathResolver));
+            ASSET_MANAGER.load(musicFilenamePath, Music.class);
+            ASSET_MANAGER.finishLoadingAsset(musicFilenamePath);
+        }else{
+            Gdx.app.debug(TAG, "Music doesn’t exist!: " +
+                    musicFilenamePath);
+        }
+    }
+
+    public Music getMusic(String musicFilenamePath){
+        Music music = null;
+        if(ASSET_MANAGER.isLoaded(musicFilenamePath)){
+            music = ASSET_MANAGER.get(musicFilenamePath, Music.class);
+        } else {
+            Gdx.app.debug(TAG, "Texture Atlas is not loaded: " +
+                    musicFilenamePath );
+        }
+        return music;
+    }
+
     public  void dispose(){
         ASSET_MANAGER.dispose();
     }

@@ -21,25 +21,30 @@ public class World1Wave1 extends Wave {
         dataSet[2] = new Vector2(050.0f/PPM/10, 190.0f/PPM/10);
         dataSet[3] = new Vector2(150.0f/PPM/10, 110.0f/PPM/10);
         //dataSet[4] = new Vector2(100.0f/PPM/10, 120.0f/PPM/10);
-        test.addMoveInCurve(dataSet, 0.2f);
+        test.addMoveInCurve(dataSet, 0.25f);
         test.addWait(.5f);
+        test.addShootAndTurn(assets.email, 2, 180, 5f, 4, 30, 0,
+                30/PPM, 15, 6, 6, -2, .2f, true);
+        test.addWait(1f);
         test.addShootAndTurn(assets.email, 2f, 2, 180, 0,
-                30/PPM, 10, 10, 10, -5);
+                30/PPM, 10, 10, 10, -5, 0, false);
+        test.addWait(1f);
+        test.addShootAndTurn(assets.email, 15f, 2, 180, 0,
+                30/PPM, 10, 5, 5, 5, .5f, true);
         test.addWait(1f);
         test.addShootAndTurn(assets.email, 2, 180, 5f, 3, 30, 0,
-                30/PPM, 10, 10, 10, 0);
+                30/PPM, 10, 10, 10, 0, 0, false);
+        test.addWait(1f);
         test.addShootAndTurn(assets.email, 2, 180, 5f, 3, 30, 0,
-                30/PPM, -7, 2, 4, 0);
-        test.addShootAndTurn(assets.email, 2, 180, 5f, 3, 30, 0,
-                30/PPM, -12, 2, 7, -2);
+                30/PPM, -12, 2, 7, -2, 0, false);
         test.addWait(1f);
         test.addMoveTo(10/PPM, 180, 20/PPM);
         test.addWait(.3f);
         test.addShootAndTurn(assets.email ,7, 4, 90, 0, 40/PPM,
-                10, 5, 10, -10);
+                10, 5, 10, -10, 0, false);
         test.addWait(2);
         test.addShootAndTurn(assets.email, 7, 2, 90, 0, 20/PPM,
-                20, 10, 10, -2);
+                20, 10, 10, -2, 0, false);
         test.addMoveTo(10/PPM, 90, 5/PPM);
         test.addWait(1f);
         test.addShootArc(assets.email, 20, 270, 360, 15/PPM);

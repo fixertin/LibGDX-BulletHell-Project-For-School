@@ -57,6 +57,9 @@ public class MainGameScreen extends GameScreen{
 
         worldManager = new WorldManager(assets);
         worldManager.worlds.get(activeIndex).init();
+        assets.gameMusic.setLooping(true);
+        assets.gameMusic.setVolume(.05f);
+        assets.gameMusic.play();
     }
 
 
@@ -87,6 +90,7 @@ public class MainGameScreen extends GameScreen{
             }else if(alpha > 1){
                 alpha = 1;
             }
+
         }
 
 
@@ -189,6 +193,8 @@ public class MainGameScreen extends GameScreen{
 
     @Override
     public void hide() {
+        assets.gameMusic.setLooping(false);
+        assets.gameMusic.stop();
         assets.unloadAssets();
     }
 

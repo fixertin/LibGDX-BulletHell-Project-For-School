@@ -15,7 +15,7 @@ public class World2Wave1 extends Wave {
                 assets.trumpFaces, scale*2, PPM, 0);
         test.addMoveTo(4, 270, 25/PPM);
         test.addShootAndTurn(assets.bitcoin, 3, 4, 90, 0,
-                10/PPM, 20, 1, 5, 0);
+                10/PPM, 20, 1, 5, 0, 0, false);
         test.addWait(.5f);
         test.addShootArc(assets.bitcoin, 10, 180, 180, 5/PPM);
         test.addMoveTo(0, 45, 10/PPM);

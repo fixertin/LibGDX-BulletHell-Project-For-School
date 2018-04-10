@@ -103,13 +103,13 @@ public class Entity {
                 activeTexture.getRegionHeight()/scale/PPM);
         batch.end();
 
-        sp.begin(ShapeRenderer.ShapeType.Line);
-        sp.setColor(Color.RED);
-        sp.rect(boundingBox.x - boundingBox.width/2,
-                boundingBox.y - boundingBox.height/2,
-                boundingBox.width,
-                boundingBox.height);
-        sp.end();
+//        sp.begin(ShapeRenderer.ShapeType.Line);
+//        sp.setColor(Color.RED);
+//        sp.rect(boundingBox.x - boundingBox.width/2,
+//                boundingBox.y - boundingBox.height/2,
+//                boundingBox.width,
+//                boundingBox.height);
+//        sp.end();
     }
 
     protected void updateBoundingBox(){
